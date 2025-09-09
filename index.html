@@ -2,47 +2,179 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="format-detection" content="telephone=no">
 <title>Helping Professionals — Halifax / Atlantic</title>
 <meta name="description" content="One-tap contacts for crisis, CAF supports, MFRC, and local resources.">
-<meta name="theme-color" content="#f7f9fc" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0b1320" media="(prefers-color-scheme: dark)">
 <style>
-  :root{
-    --bg:#f7f9fc;--panel:#fff;--text:#0c1b2a;--muted:#5b6b7b;--border:#d9e2ec;--chip:#eef2f7;--focus:#2b6cb0
+  :root {
+    --bg: #f7f9fc;
+    --panel: #fff;
+    --text: #0c1b2a;
+    --muted: #5b6b7b;
+    --border: #d9e2ec;
+    --chip: #eef2f7;
   }
-  @media (prefers-color-scheme:dark){
-    :root{--bg:#0b1320;--panel:#121e2a;--text:#e5edf5;--muted:#9ab0c4;--border:#243649;--chip:#172636}
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
   }
-  *{box-sizing:border-box}
-  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
-  a{color:inherit}
-  .wrap{max-width:860px;margin:0 auto;padding:16px}
-  header{
-    background:var(--bg);
-    border-bottom:1px solid var(--border);
-    /* removed sticky positioning so the whole page scrolls naturally */
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 16px; }
+  header { background: var(--bg); border-bottom: 1px solid var(--border); }
+  .title { padding: 12px 16px; }
+  .title h1 { margin: 0; font-size: 1.2rem; }
+  .emergency-bar {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    padding: 10px 16px 14px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
   }
-  .title{display:flex;flex-direction:column;gap:6px;padding:12px 16px}
-  .title h1{margin:0;font-size:1.2rem;letter-spacing:.2px}
-  .emergency-bar{display:flex;gap:8px;flex-wrap:wrap;padding:10px 16px 14px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg)}
-  .btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);background:var(--panel);color:var(--text);padding:12px 14px;border-radius:14px;text-decoration:none;font-weight:600;min-height:44px}
-  .btn:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
-  .search{display:flex;gap:10px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--bg)}
-  .search input{flex:1;appearance:none;background:var(--panel);color:var(--text);border:1px solid var(--border);border-radius:12px;padding:12px 14px;outline:none;min-height:44px}
-  .search input:focus{border-color:var(--focus);box-shadow:0 0 0 3px color-mix(in oklab, var(--focus) 25%, transparent)}
-  .clear{border:1px solid var(--border);background:var(--panel);border-radius:10px;padding:10px 12px;min-height:44px}
-  .clear:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
-  .count{margin-left:auto;font-size:.85rem;color:var(--muted)}
-  .section{margin:18px 0 8px;border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--panel)}
-  .section summary{list-style:none;cursor:pointer;padding:14px 16px;font-weight:700;background:var(--chip);border-bottom:1px solid var(--border)}
-  .section summary::-webkit-details-marker{display:none}
-  .list{padding:2px 12px 12px;display:grid;gap:10px}
-  .card{border:1px solid var(--border);background:var(--panel);border-radius:12px;padding:12px;display:grid;gap:8px}
-  .card h3{margin:0;font-size:1rem}
-  .tags{display:flex;gap:8px;flex-wrap:wrap}
-  .tag{font-size:.78rem;color:var(--muted);background:var(--chip);padding:3px 8px;border-radius:999px;border:1px solid var(--border)}
-  .tag.alt{text-decoration:none}
-  .actions{display:flex;gap:8px;flex-wrap:wrap}
-  .act{flex:
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid var(--border);
+    background: var(--panel);
+    color: var(--text);
+    padding: 12px 14px;
+    border-radius: 14px;
+    font-weight: 600;
+  }
+  .search {
+    display: flex; gap: 10px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+  }
+  .search input {
+    flex: 1;
+    background: var(--panel);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 14px;
+  }
+  .section {
+    margin: 18px 0 8px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--panel);
+    overflow: hidden;
+  }
+  .section summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-weight: 700;
+    background: var(--chip);
+    border-bottom: 1px solid var(--border);
+  }
+  .list { padding: 2px 12px 12px; display: grid; gap: 10px; }
+  .card {
+    border: 1px solid var(--border);
+    background: var(--panel);
+    border-radius: 12px;
+    padding: 12px;
+    display: grid;
+    gap: 8px;
+  }
+  .card h3 { margin: 0; font-size: 1rem; }
+  .tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag {
+    font-size: .78rem;
+    color: var(--muted);
+    background: var(--chip);
+    padding: 3px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+  }
+  .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .act {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: var(--chip);
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+  footer { color: var(--muted); padding: 24px 16px 32px; text-align: center; }
+  .small { font-size: .85rem; }
+  @media (min-width:720px) {
+    .list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="title"><h1>Helping Professionals — Halifax / Atlantic</h1></div>
+  <div class="emergency-bar wrap">
+    <a class="btn" href="tel:911">911 Emergency</a>
+    <a class="btn" href="tel:9024298167">NS Crisis Line (902) 429-8167</a>
+    <a class="btn" href="tel:8334564566">Canada Suicide (CSPS)</a>
+    <a class="btn" href="tel:9024270550">Base Operator</a>
+    <a class="btn" href="tel:8005658161">Poison Centre</a>
+    <a class="btn" href="tel:9024277788">MFRC 24/7</a>
+  </div>
+  <div class="search">
+    <input id="q" placeholder="Search names, numbers, programs…" aria-label="Search contacts" autocomplete="off" spellcheck="false">
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- SAMPLE SECTION -->
+  <details class="section" open>
+    <summary>Crisis Text Lines</summary>
+    <div class="list">
+      <div class="card">
+        <h3>Military Family Kids (CAFKIDS) – Text Line</h3>
+        <div class="tags"><span class="tag">Youth</span><span class="tag">Text</span></div>
+        <div class="actions">
+          <a class="act" href="sms:686868&body=CAFKIDS">Text</a>
+          <a class="act" href="https://cfmws.ca/support-services/families/family-information-line">Website</a>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Crisis Text Line (All) – Text HOME</h3>
+        <div class="tags"><span class="tag">Text</span></div>
+        <div class="actions">
+          <a class="act" href="sms:686868&body=HOME">Text</a>
+          <a class="act" href="https://www.crisistextline.org/">Website</a>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Canada Suicide Prevention – Text 45645</h3>
+        <div class="tags"><span class="tag">Suicide</span><span class="tag">Text</span></div>
+        <div class="actions">
+          <a class="act" href="sms:45645">Text</a>
+          <a class="act" href="https://988.ca/">Website</a>
+        </div>
+      </div>
+    </div>
+  </details>
+
+</main>
+
+<footer class="small">
+  One-tap calling, texting, and direct links. Static file for GitHub Pages.
+</footer>
+
+<script>
+document.getElementById('q').addEventListener('input', function(e) {
+  const q = e.target.value.toLowerCase().trim();
+  document.querySelectorAll('.card').forEach(card => {
+    card.style.display = card.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+  document.querySelectorAll('.section').forEach(sec => {
+    const any = [...sec.querySelectorAll('.card')].some(c => c.style.display !== 'none');
+    sec.style.display = any ? '' : 'none';
+  });
+});
+</script>
+</body>
+</html>
