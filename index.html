@@ -1,10 +1,13 @@
+Got it — removed that header sentence and the footer chips. Here’s the full updated file.
+
+```html
 <!doctype html>
 <html lang="en-CA">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Helping Professionals — Halifax / Atlantic</title>
-<meta name="description" content="One-tap calling for Halifax/Atlantic helping professionals. Exact contacts from the provided PDF (Canadian numbers only).">
+<meta name="description" content="Contacts for Halifax/Atlantic helping professionals.">
 <style>
   :root{
     --bg1:#0f172a; --bg2:#0a1226; --ring:#38bdf8;
@@ -19,7 +22,6 @@
   .wrap{max-width:980px;margin:0 auto;padding:16px}
   header{padding:24px 8px 8px}
   h1{margin:0 0 6px;font-size:1.5rem;letter-spacing:.2px}
-  .lede{margin:0;color:var(--muted)}
   .badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
   .badge{background:linear-gradient(90deg,var(--gradA),var(--gradB));color:#06121f;border-radius:999px;
     padding:6px 10px;font-weight:600}
@@ -45,16 +47,12 @@
   .btn:focus-visible{outline:3px solid var(--ring);outline-offset:2px}
   .num{font-variant-numeric:tabular-nums}
   .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
-  .chips{display:flex;flex-wrap:wrap;gap:8px}
-  .chip{background:var(--pill);border:1px solid #1b2a48;border-radius:999px;padding:6px 10px;font-size:.9rem;color:var(--muted)}
-  footer{margin:30px 0 56px;color:var(--muted);font-size:.9rem}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
     <h1>Helping Professionals — Halifax / Atlantic</h1>
-    <p class="lede">One-tap calling. Canadian numbers only. Matches your uploaded PDF.</p>
     <div class="badges">
       <span class="badge">PDF-matched list</span>
       <span class="badge">Mobile-first</span>
@@ -237,30 +235,7 @@
       </div>
     </div>
   </section>
-
-  <!-- Mental Health Education -->
-  <section aria-label="Mental Health Education">
-    <h2>Mental Health Education</h2>
-    <div class="grid">
-      <div class="card"><div class="k">PSP</div><div class="t">Health Promotion Services</div>
-        <div class="btnrow"><a class="btn" href="tel:+19027224956" aria-label="Call Health Promotion Services 902-722-4956">Call <span class="mono num">(902) 722-4956</span></a></div>
-      </div>
-      <div class="card"><div class="k">R2MR</div><div class="t">Road to Mental Readiness</div>
-        <div class="btnrow"><a class="btn" href="tel:+19027218819" aria-label="Call Road to Mental Readiness 902-721-8819">Call <span class="mono num">(902) 721-8819</span></a></div>
-      </div>
-      <div class="card"><div class="k">LCC</div><div class="t">Learning &amp; Career Centre</div>
-        <div class="btnrow"><a class="btn" href="tel:+19027224304" aria-label="Call Learning and Career Centre 902-722-4304">Call <span class="mono num">(902) 722-4304</span></a></div>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="chips">
-      <span class="chip">Halifax / Atlantic</span>
-      <span class="chip">Canadian numbers only</span>
-      <span class="chip">Source: uploaded PDF</span>
-    </div>
-  </footer>
 </div>
 </body>
 </html>
+```
