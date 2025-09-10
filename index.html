@@ -1,518 +1,250 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-CA">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="format-detection" content="telephone=no">
-<title>Helping Professionals — Halifax / Atlantic</title>
-<meta name="description" content="One-tap contacts for crisis, CAF supports, MFRC, and local resources.">
-<style>
-  :root {
-    --bg: #f7f9fc;
-    --panel: #ffffff;
-    --text: #0c1b2a;
-    --muted: #5b6b7b;
-    --border: #d9e2ec;
-    --chip: #eef2f7;
-  }
-  * { box-sizing: border-box; }
-  html, body { margin:0; padding:0; background:var(--bg); color:var(--text); font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; }
-  a { color: inherit; text-decoration: none; }
-  .wrap { max-width: 860px; margin: 0 auto; padding: 16px; }
-  header { background: var(--bg); border-bottom:1px solid var(--border); }
-  .title { display:flex; flex-direction:column; gap:6px; padding: 12px 16px; }
-  .title h1 { margin:0; font-size: 1.2rem; letter-spacing:.2px; }
-  .emergency-bar { display:flex; gap:8px; flex-wrap:wrap; padding: 10px 16px 14px; border-top:1px solid var(--border); border-bottom:1px solid var(--border); background: var(--bg); }
-  .btn { display:inline-flex; align-items:center; gap:8px; border:1px solid var(--border); background:var(--panel); color:var(--text); padding:12px 14px; border-radius:14px; text-decoration:none; font-weight:600; min-height:48px; justify-content:center; }
-  .search { display:flex; gap:10px; padding: 12px 16px; border-bottom:1px solid var(--border); background:var(--bg); }
-  .search input { flex:1; appearance:none; background:var(--panel); color:var(--text); border:1px solid var(--border); border-radius:12px; padding:12px 14px; outline:none; }
-  .section { margin: 18px 0 8px; border:1px solid var(--border); border-radius:16px; overflow:hidden; background: var(--panel); }
-  .section summary { list-style:none; cursor:pointer; padding:14px 16px; font-weight:700; background: var(--chip); border-bottom:1px solid var(--border); }
-  .section summary::-webkit-details-marker { display:none; }
-  .list { padding: 2px 12px 12px; display:grid; gap:10px; }
-  .card { border:1px solid var(--border); background:var(--panel); border-radius:12px; padding:12px; display:grid; gap:8px; }
-  .card h3 { margin:0; font-size:1rem; }
-  .tags { display:flex; gap:8px; flex-wrap:wrap; }
-  .tag { font-size:.78rem; color:var(--muted); background: var(--chip); padding:3px 8px; border-radius: 999px; border:1px solid var(--border); }
-  .tag.alt { text-decoration:none; }
-  .actions { display:flex; gap:8px; flex-wrap:wrap; }
-  .act { flex: 0 1 auto; display:inline-flex; align-items:center; gap:6px; padding:10px 12px; border-radius:12px; text-decoration:none; background:var(--chip); border:1px solid var(--border); color:var(--text); min-height:44px; }
-  .act:hover { filter:brightness(1.02); }
-  footer { color:var(--muted); padding:24px 16px 32px; text-align:center; }
-  .small { font-size:.85rem; }
-  @media (min-width:720px) {
-    .list { grid-template-columns: repeat(2, minmax(0,1fr)); }
-  }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Helping Professionals — Halifax / Atlantic</title>
+  <meta name="description" content="One-tap calling, texting, and direct links for Halifax / Atlantic helpers." />
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --card: #121821;
+      --ink: #e9eef5;
+      --muted: #a7b3c6;
+      --accent: #79b8ff;
+      --pill: #17202b;
+      --btn: #1f2937;
+      --btn-ink: #f8fbff;
+      --ring: #24415f;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin:0; padding:0; background:var(--bg); color:var(--ink); font:16px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"; }
+    a { color: var(--accent); text-decoration: none; }
+    header { padding: 24px 16px 8px; max-width: 800px; margin: 0 auto; }
+    h1 { margin: 0 0 8px; font-size: 1.375rem; }
+    p.lede { margin: 0; color: var(--muted); }
+    .quickbar { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 0; }
+    .quickbar a { background:var(--pill); color:var(--ink); padding:6px 10px; border-radius:999px; font-size:.9rem; border:1px solid #1d2835; }
+    main { max-width: 900px; margin: 8px auto 64px; padding: 0 12px; }
+    section { margin: 18px 0 28px; }
+    h2 { font-size: 1.0rem; font-weight: 600; color: var(--muted); letter-spacing:.02em; margin: 0 0 8px; }
+    .grid { display:grid; gap:10px; grid-template-columns: 1fr 1fr; }
+    @media (max-width:640px){ .grid { grid-template-columns: 1fr; } }
+    .card { background:var(--card); border:1px solid #1a2230; border-radius:14px; padding:12px; }
+    .k { font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
+    .t { font-size:1.02rem; font-weight:600; margin-bottom:2px; }
+    .sub { font-size:.92rem; color:var(--muted); margin-bottom:10px; }
+    .btnrow { display:flex; gap:8px; flex-wrap:wrap; }
+    .btn { display:inline-block; background:var(--btn); color:var(--btn-ink); border-radius:10px; padding:10px 12px; border:1px solid #273345; }
+    .btn:focus-visible { outline: 3px solid var(--ring); outline-offset: 2px; }
+    .mono { font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace; font-size:.95em; }
+    .muted { color:var(--muted); }
+    footer { max-width: 800px; margin: 24px auto 56px; padding:0 16px; color: var(--muted); font-size:.9rem; }
+  </style>
 </head>
 <body>
-<header>
-  <div class="title">
+  <header>
     <h1>Helping Professionals — Halifax / Atlantic</h1>
-  </div>
-  <div class="emergency-bar wrap">
-    <a class="btn" href="tel:911">911 Emergency 911</a>
-    <a class="btn" href="tel:9024298167">NS Crisis Line (902) 429-8167</a>
-    <a class="btn" href="tel:8334564566">Canada Suicide (CSPS) (833) 456-4566</a>
-    <a class="btn" href="tel:9024270550">Base Operator (902) 427-0550</a>
-    <a class="btn" href="tel:8005658161">Poison Centre (800) 565-8161</a>
-    <a class="btn" href="tel:9024277788">MFRC 24/7 (902) 427-7788</a>
-  </div>
-  <div class="search">
-    <input id="q" placeholder="Search names, numbers, programs…" aria-label="Search contacts" autocomplete="off" spellcheck="false">
-  </div>
-</header>
-
-<main class="wrap">
-  
-  <details class="section" open>
-    <summary>Crisis Text Lines</summary>
-    <div class="list">
-      
-      <div class="card">
-        <h3>Military Family Kids (CAFKIDS) – Text Line</h3>
-        <div class="tags"><span class="tag">Youth</span><span class="tag">Text</span></div>
-        <div class="actions">
-          <a class="act" href="sms:686868&body=CAFKIDS">Text</a>
-          <a class="act" href="https://cfmws.ca/support-services/families/family-information-line" rel="noopener noreferrer">Website</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>Crisis Text Line (All) – Text HOME</h3>
-        <div class="tags"><span class="tag">Text</span></div>
-        <div class="actions">
-          <a class="act" href="sms:686868&body=HOME">Text</a>
-          <a class="act" href="https://www.crisistextline.org/" rel="noopener noreferrer">Website</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>Canada Suicide Prevention – Text 45645</h3>
-        <div class="tags"><span class="tag">Suicide</span><span class="tag">Text</span></div>
-        <div class="actions">
-          <a class="act" href="sms:45645">Text</a>
-          <a class="act" href="https://988.ca/" rel="noopener noreferrer">Website</a>
-        </div>
-      </div>
-
+    <p class="lede">One-tap calling, texting, and direct links.</p>
+    <div class="quickbar">
+      <span class="muted">911 Emergency</span>
+      <span class="muted">NS Crisis Line <span class="mono">(902) 429-8167 / 1-888-429-8167</span></span>
+      <span class="muted">Canada Suicide (988)</span>
+      <span class="muted">Base Operator <span class="mono">(902) 427-0550</span></span>
+      <span class="muted">Poison Centre <span class="mono">1-800-565-8161</span></span>
+      <span class="muted">MFRC 24/7 <span class="mono">(902) 427-7788</span></span>
     </div>
-  </details>
+  </header>
 
-  <details class="section" open>
-    <summary>CFB Halifax & Region</summary>
-    <div class="list">
-      
-      <div class="card">
-        <h3>911 – Police / Fire / Ambulance</h3>
-        <div class="tags"><span class="tag">Emergency</span></div>
-        <div class="actions">
-          <a class="act" href="tel:911">Call 911</a>
-          <a class="act" href="https://beta.novascotia.ca/911-emergency-when-call" rel="noopener noreferrer">Website</a>
+  <main>
+
+    <section aria-label="Crisis Text Lines">
+      <h2>Crisis Text Lines</h2>
+      <div class="grid">
+
+        <div class="card">
+          <div class="k">Youth Text</div>
+          <div class="t">Military Family Kids (CAFKIDS) — Text “CAFKids”</div>
+          <div class="sub">Text message support for military kids.</div>
+          <div class="btnrow">
+            <a class="btn" href="sms:686868?&body=CAFKids" aria-label="Open SMS to 686868 with text CAFKids">Text</a>
+            <a class="btn" href="https://cfmws.ca/support-services/families/children-youth/youth-crisis-texting-service" target="_blank" rel="noopener noreferrer">Website</a>
+          </div>
         </div>
-      </div>
 
-      <div class="card">
-        <h3>988 – Suicide Crisis Helpline (Canada)</h3>
-        <div class="tags"><span class="tag">Suicide</span></div>
-        <div class="actions">
-          <a class="act" href="tel:988">Call 988</a>
-          <a class="act" href="https://988.ca/" rel="noopener noreferrer">Website</a>
+        <div class="card">
+          <div class="k">Text</div>
+          <div class="t">Crisis Text Line (All) — Text “HOME”</div>
+          <div class="sub">24/7 text support across Canada.</div>
+          <div class="btnrow">
+            <a class="btn" href="sms:686868?&body=HOME" aria-label="Open SMS to 686868 with text HOME">Text</a>
+            <a class="btn" href="https://www.crisistextline.org" target="_blank" rel="noopener noreferrer">Website</a>
+          </div>
         </div>
-      </div>
 
-      <div class="card">
-        <h3>HealthLink 811 (Nova Scotia)</h3>
-        <div class="tags"><span class="tag">Nurse Advice</span></div>
-        <div class="actions">
-          <a class="act" href="tel:811">Call 811</a>
-          <a class="act" href="https://811.novascotia.ca/" rel="noopener noreferrer">Website</a>
+        <div class="card">
+          <div class="k">Suicide Text</div>
+          <div class="t">Suicide Crisis Helpline — Text 988</div>
+          <div class="sub">National 24/7 suicide text/voice line (Canada).</div>
+          <div class="btnrow">
+            <a class="btn" href="sms:988" aria-label="Open SMS to 988">Text</a>
+            <a class="btn" href="https://988.ca/" target="_blank" rel="noopener noreferrer">Website</a>
+          </div>
         </div>
-      </div>
 
-      <div class="card">
-        <h3>211 – Community, Health & Social Services</h3>
-        <div class="tags"><span class="tag">Community</span></div>
-        <div class="actions">
-          <a class="act" href="tel:211">Call 211</a>
-          <a class="act" href="https://ns.211.ca/" rel="noopener noreferrer">Website</a>
+      </div>
+    </section>
+
+    <section aria-label="CFB Halifax & Region">
+      <h2>CFB Halifax &amp; Region</h2>
+      <div class="grid">
+
+        <div class="card">
+          <div class="k">Emergency</div>
+          <div class="t">911 — Police / Fire / Ambulance</div>
+          <div class="sub">For life-threatening emergencies.</div>
+          <div class="btnrow">
+            <a class="btn" href="tel:911">Call 911</a>
+            <a class="btn" href="https://beta.novascotia.ca/report-emergency" target="_blank" rel="noopener noreferrer">Website</a>
+          </div>
         </div>
-      </div>
 
-      <div class="card">
-        <h3>Base Operator (CFB Halifax)</h3>
-        <div class="tags"></div>
-        <div class="actions">
-          <a class="act" href="tel:9024270550">Call (902) 427-0550</a>
+        <div class="card">
+          <div class="k">Suicide</div>
+          <div class="t">988 — Suicide Crisis Helpline (Canada)</div>
+          <div class="sub">Call or text 988, 24/7.</div>
+          <div class="btnrow">
+            <a class="btn" href="tel:988" aria-label="Call 988">Call 988</a>
+            <a class="btn" href="https://988.ca/" target="_blank" rel="noopener noreferrer">Website</a>
+          </div>
         </div>
-      </div>
 
-    </div>
-  </details>
-
-  <details class="section" open>
-    <summary>Emergency & Crisis (Local)</summary>
-    <div class="list">
-      
-      <div class="card">
-        <h3>Duty Chaplain (24/7)</h3>
-        <div class="tags"><span class="tag">Chaplain</span></div>
-        <div class="actions">
-          <a class="act" href="tel:9024277788">Call (902) 427-7788</a>
+        <div class="card">
+          <div class="k">Nurse Advice</div>
+          <div class="t">HealthLink 811 (Nova Scotia)</div>
+          <div class="sub">Non-emergency health advice.</div>
+          <div class="btnrow">
+            <a class="btn" href="tel:811">Call 811</a>
+            <a class="btn" href="https://811.novascotia.ca" target="_blank" rel="noopener noreferrer">Website</a>
+          </div>
         </div>
-      </div>
 
-      <div class="card">
-        <h3>MFRC Emergency Childcare (24/7)</h3>
-        <div class="tags"><span class="tag">MFRC</span><span class="tag">Childcare</span></div>
-        <div class="actions">
-          <a class="act" href="tel:9024277788">Call (902) 427-7788</a>
-          <a class="act" href="https://halifaxmfrc.ca/index.php/en/programs" rel="noopener noreferrer">Website</a>
+        <div class="card">
+          <div class="k">Community</div>
+          <div class="t">211 — Community, Health &amp; Social Services</div>
+          <div class="sub">Navigation to services across NS.</div>
+          <div class="btnrow">
+            <a class="btn" href="tel:211">Call 211</a>
+            <a class="btn" href="https://ns.211.ca" target="_blank" rel="noopener noreferrer">Website</a>
+          </div>
         </div>
-      </div>
 
-      <div class="card">
-        <h3>Canada Suicide Prevention Service (CSPS)</h3>
-        <div class="tags"><span class="tag">Suicide</span></div>
-        <div class="actions">
-          <a class="act" href="tel:8334564566">Call (833) 456-4566</a>
-          <a class="act" href="https://988.ca/" rel="noopener noreferrer">Website</a>
+        <div class="card">
+          <div class="k">Emergency & Crisis (Local)</div>
+          <div class="t">Base Operator (CFB Halifax)</div>
+          <div class="sub">Switchboard for on-base assistance.</div>
+          <div class="btnrow">
+            <a class="btn" href="tel:+19024270550">Call (902) 427-0550</a>
+          </div>
         </div>
-      </div>
 
-      <div class="card">
-        <h3>NS Mental Health & Addictions Crisis Line</h3>
-        <div class="tags"><span class="tag">Mental Health</span> <a class="tag alt" href="tel:18884298167" aria-label="Alternate number (888) 429-8167">Alt: (888) 429-8167</a></div>
-        <div class="actions">
-          <a class="act" href="tel:9024298167">Call (902) 429-8167</a>
+        <div class="card">
+          <div class="k">Chaplain</div>
+          <div class="t">Duty Chaplain (24/7)</div>
+          <div class="sub">On-call spiritual support.</div>
+          <div class="btnrow">
+            <a class="btn" href="tel:+19024277788">Call (902) 427-7788</a>
+          </div>
         </div>
-      </div>
 
-      <div class="card">
-        <h3>Bryony House (Shelter)</h3>
-        <div class="tags"><span class="tag">IPV</span></div>
-        <div class="actions">
-          <a class="act" href="tel:9024227650">Call (902) 422-7650</a>
-          <a class="act" href="https://bryonyhouse.ca/contact/" rel="noopener noreferrer">Website</a>
+        <div class="card">
+          <div class="k">MFRC Childcare</div>
+          <div class="t">MFRC Emergency Childcare (24/7)</div>
+          <div class="sub">Family support & emergency childcare.</div>
+          <div class="btnrow">
+            <a class="btn" href="tel:+19024277788">Call (902) 427-7788</a>
+            <a class="btn" href="https://halifaxmfrc.ca" target="_blank" rel="noopener noreferrer">Website</a>
+          </div>
         </div>
-      </div>
 
-      <div class="card">
-        <h3>Avalon Sexual Assault Nurse Examiner (SANE)</h3>
-        <div class="tags"><span class="tag">SANE</span></div>
-        <div class="actions">
-          <a class="act" href="tel:9024250122">Call (902) 425-0122</a>
-          <a class="act" href="https://avaloncentre.ca/sexual-assault-nurse-examiner-sane-program/" rel="noopener noreferrer">Website</a>
+        <div class="card">
+          <div class="k">Suicide</div>
+          <div class="t">Canada Suicide Prevention Service (CSPS)</div>
+          <div class="sub">Voice line; text now handled via 988.</div>
+          <div class="btnrow">
+            <a class="btn" href="tel:+18334564566">Call (833) 456-4566</a>
+            <a class="btn" href="https://988.ca/" target="_blank" rel="noopener noreferrer">Website</a>
+          </div>
         </div>
-      </div>
 
-      <div class="card">
-        <h3>Child Protection Services – After Hours</h3>
-        <div class="tags"><span class="tag">Child Protection</span> <a class="tag alt" href="tel:18669222434" aria-label="Alternate number (866) 922-2434">Alt: (866) 922-2434</a></div>
-        <div class="actions">
-          <a class="act" href="tel:18889194236">Call (888) 919-4236</a>
-          <a class="act" href="https://novascotia.ca/coms/department/contact/ChildWelfareServices.html" rel="noopener noreferrer">Website</a>
+        <div class="card">
+          <div class="k">Mental Health</div>
+          <div class="t">NS Mental Health &amp; Addictions Crisis Line</div>
+          <div class="sub">24/7 provincial crisis line.</div>
+          <div class="btnrow">
+            <a class="btn" href="tel:+19024298167">Call (902) 429-8167</a>
+            <a class="btn" href="https://mha.nshealth.ca/en/services/provincial-mental-health-and-addictions-crisis-line" target="_blank" rel="noopener noreferrer">Website</a>
+          </div>
         </div>
-      </div>
 
-      <div class="card">
-        <h3>Atlantic Canada Poison Centre (IWK)</h3>
-        <div class="tags"><span class="tag">Poison</span> <a class="tag alt" href="tel:9024708161" aria-label="Alternate number (902) 470-8161">Alt: (902) 470-8161</a></div>
-        <div class="actions">
-          <a class="act" href="tel:18005658161">Call (800) 565-8161</a>
-          <a class="act" href="https://atlanticcanadapoisoncentre.ca/" rel="noopener noreferrer">Website</a>
+      </div>
+    </section>
+
+    <section aria-label="Violence, SANE, Child Protection, Poison">
+      <div class="grid">
+
+        <div class="card">
+          <div class="k">IPV</div>
+          <div class="t">Bryony House (Shelter)</div>
+          <div class="sub">24/7 crisis support for women & children.</div>
+          <div class="btnrow">
+            <a class="btn" href="tel:+19024227650">Call (902) 422-7650</a>
+            <a class="btn" href="https://bryonyhouse.ca" target="_blank" rel="noopener noreferrer">Website</a>
+          </div>
         </div>
-      </div>
 
-      <div class="card">
-        <h3>National Suicide Prevention Lifeline (U.S.)</h3>
-        <div class="tags"><span class="tag">US</span></div>
-        <div class="actions">
-          <a class="act" href="tel:18002738255">Call (800) 273-8255</a>
-          <a class="act" href="https://988lifeline.org/" rel="noopener noreferrer">Website</a>
+        <div class="card">
+          <div class="k">SANE</div>
+          <div class="t">Avalon Sexual Assault Nurse Examiner</div>
+          <div class="sub">24/7 on-call SANE access line.</div>
+          <div class="btnrow">
+            <a class="btn" href="tel:+19024250122">Call (902) 425-0122</a>
+            <a class="btn" href="https://avaloncentre.ca" target="_blank" rel="noopener noreferrer">Website</a>
+          </div>
         </div>
-      </div>
 
-    </div>
-  </details>
-
-  <details class="section" open>
-    <summary>CAF Health Services Centre (Atlantic)</summary>
-    <div class="list">
-      
-      <div class="card">
-        <h3>CDU 1</h3>
-        <div class="tags"></div>
-        <div class="actions"><a class="act" href="tel:9027218890">Call (902) 721-8890</a></div>
-      </div>
-
-      <div class="card">
-        <h3>CDU 2</h3>
-        <div class="tags"></div>
-        <div class="actions"><a class="act" href="tel:9027218868">Call (902) 721-8868</a></div>
-      </div>
-
-      <div class="card">
-        <h3>CDU 3</h3>
-        <div class="tags"></div>
-        <div class="actions"><a class="act" href="tel:9027218764">Call (902) 721-8764</a></div>
-      </div>
-
-      <div class="card">
-        <h3>CDU 4</h3>
-        <div class="tags"></div>
-        <div class="actions"><a class="act" href="tel:9027201558">Call (902) 720-1558</a></div>
-      </div>
-
-      <div class="card">
-        <h3>CDU 5</h3>
-        <div class="tags"><a class="tag alt" href="tel:9027210816" aria-label="Alternate number (902) 721-0816">Alt: (902) 721-0816</a></div>
-        <div class="actions"><a class="act" href="tel:9027210815">Call (902) 721-0815</a></div>
-      </div>
-
-      <div class="card">
-        <h3>Psychosocial Services (Social Work)</h3>
-        <div class="tags"></div>
-        <div class="actions"><a class="act" href="tel:9027218607">Call (902) 721-8607</a></div>
-      </div>
-
-      <div class="card">
-        <h3>Addiction Services</h3>
-        <div class="tags"></div>
-        <div class="actions"><a class="act" href="tel:9027218600">Call (902) 721-8600</a></div>
-      </div>
-
-    </div>
-  </details>
-
-  <details class="section" open>
-    <summary>CAF Services & Programs</summary>
-    <div class="list">
-      
-      <div class="card">
-        <h3>Member Assistance Program (CFMAP/MAP)</h3>
-        <div class="tags"><span class="tag">Counselling</span> <a class="tag alt" href="tel:18005675803" aria-label="Alternate number (800) 567-5803">Alt: (800) 567-5803</a></div>
-        <div class="actions">
-          <a class="act" href="tel:18002687708">Call (800) 268-7708</a>
-          <a class="act" href="https://www.canada.ca/en/department-national-defence/programs/member-assistance.html" rel="noopener noreferrer">Website</a>
+        <div class="card">
+          <div class="k">Child Protection</div>
+          <div class="t">Child Protection Services — After Hours</div>
+          <div class="sub">Report concerns: <span class="mono">1-833-424-5800</span> (day) / <span class="mono">1-866-922-2434</span> (after-hours).</div>
+          <div class="btnrow">
+            <a class="btn" href="tel:+18334245800">Call 1-833-424-5800</a>
+            <a class="btn" href="https://beta.novascotia.ca/report-child-abuse-or-neglect" target="_blank" rel="noopener noreferrer">Website</a>
+          </div>
         </div>
-      </div>
 
-      <div class="card">
-        <h3>Family Information Line (FIL)</h3>
-        <div class="tags"><span class="tag">Family</span></div>
-        <div class="actions">
-          <a class="act" href="tel:18008664546">Call (800) 866-4546</a>
-          <a class="act" href="https://cfmws.ca/support-services/family-information-line" rel="noopener noreferrer">Website</a>
+        <div class="card">
+          <div class="k">Poison</div>
+          <div class="t">Atlantic Canada Poison Centre (IWK)</div>
+          <div class="sub">Public line <span class="mono">1-800-565-8161</span> • Alt <span class="mono">1-844-764-7669</span>.</div>
+          <div class="btnrow">
+            <a class="btn" href="tel:+18005658161">Call 1-800-565-8161</a>
+            <a class="btn" href="https://atlanticcanadapoisoncentre.ca/pub-contact.html" target="_blank" rel="noopener noreferrer">Website</a>
+          </div>
         </div>
-      </div>
 
-      <div class="card">
-        <h3>Sexual Misconduct Support & Resource Centre (SMSRC)</h3>
-        <div class="tags"><span class="tag">SMSRC</span></div>
-        <div class="actions">
-          <a class="act" href="tel:18447501648">Call (844) 750-1648</a>
-          <a class="act" href="https://www.canada.ca/en/department-national-defence/services/benefits-military/health-support/sexual-misconduct-response-centre.html" rel="noopener noreferrer">Website</a>
+        <div class="card">
+          <div class="k">US</div>
+          <div class="t">National Suicide Prevention Lifeline (U.S.)</div>
+          <div class="sub">If calling from the U.S.</div>
+          <div class="btnrow">
+            <a class="btn" href="tel:+18002738255">Call (800) 273-8255</a>
+            <a class="btn" href="https://988lifeline.org" target="_blank" rel="noopener noreferrer">Website</a>
+          </div>
         </div>
+
       </div>
+    </section>
 
-      <div class="card">
-        <h3>CAF Transition Unit (national)</h3>
-        <div class="tags"><span class="tag">Transition</span></div>
-        <div class="actions">
-          <a class="act" href="tel:18008836094">Call (800) 883-6094</a>
-          <a class="act" href="https://www.canada.ca/en/department-national-defence/services/benefits-military/transition.html" rel="noopener noreferrer">Website</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>CAF Transition Centre (Halifax)</h3>
-        <div class="tags"><span class="tag">Transition</span></div>
-        <div class="actions">
-          <a class="act" href="tel:9027221908">Call (902) 722-1908</a>
-          <a class="act" href="https://www.canada.ca/en/department-national-defence/services/benefits-military/transition/find-transition-centre.html" rel="noopener noreferrer">Website</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>OSISS (Operational Stress Injury Social Support)</h3>
-        <div class="tags"><span class="tag">OSISS</span></div>
-        <div class="actions">
-          <a class="act" href="tel:18008836094">Call (800) 883-6094</a>
-          <a class="act" href="https://cfmws.ca/mental-health/osiss" rel="noopener noreferrer">Website</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>Veterans Affairs Canada (VAC)</h3>
-        <div class="tags"><span class="tag">VAC</span></div>
-        <div class="actions">
-          <a class="act" href="tel:18665222122">Call (866) 522-2122</a>
-          <a class="act" href="https://www.veterans.gc.ca/en" rel="noopener noreferrer">Website</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>SISIP Financial Services (Halifax)</h3>
-        <div class="tags"><span class="tag">Finance</span></div>
-        <div class="actions">
-          <a class="act" href="tel:9024256926">Call (902) 425-6926</a>
-          <a class="act" href="https://cfmws.ca/insurance-and-finance/sisip-financial" rel="noopener noreferrer">Website</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>Conflict & Complaint Management Services (CCMS)</h3>
-        <div class="tags"><span class="tag">CCMS</span> <a class="tag alt" href="tel:18333283351" aria-label="Alternate number (833) 328-3351">Alt: (833) 328-3351</a></div>
-        <div class="actions">
-          <a class="act" href="tel:9027217533">Call (902) 721-7533</a>
-          <a class="act" href="https://www.canada.ca/en/department-national-defence/services/benefits-military/conflict-misconduct/ccms.html" rel="noopener noreferrer">Website</a>
-        </div>
-      </div>
-
-    </div>
-  </details>
-
-  <details class="section" open>
-    <summary>Military Family Resource Centre (Halifax/Shearwater)</summary>
-    <div class="list">
-      <div class="card">
-        <h3>MFRC – Main Line (24/7)</h3>
-        <div class="tags"><span class="tag">MFRC</span></div>
-        <div class="actions">
-          <a class="act" href="tel:9024277788">Call (902) 427-7788</a>
-          <a class="act" href="https://halifaxmfrc.ca/" rel="noopener noreferrer">Website</a>
-        </div>
-      </div>
-    </div>
-  </details>
-
-  <details class="section" open>
-    <summary>Mental Health Education & Training</summary>
-    <div class="list">
-      
-      <div class="card">
-        <h3>Health Promotion Services (PSP) – Halifax</h3>
-        <div class="tags"><span class="tag">PSP</span></div>
-        <div class="actions">
-          <a class="act" href="tel:9027224956">Call (902) 722-4956</a>
-          <a class="act" href="https://cfmws.ca/health-promotion" rel="noopener noreferrer">Website</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>Road to Mental Readiness (R2MR)</h3>
-        <div class="tags"><span class="tag">R2MR</span> <a class="tag alt" href="tel:9028026556" aria-label="Alternate number (902) 802-6556">Alt: (902) 802-6556</a></div>
-        <div class="actions">
-          <a class="act" href="tel:9027218819">Call (902) 721-8819</a>
-          <a class="act" href="https://www.canada.ca/en/department-national-defence/services/benefits-military/health-support/mental-health/r2mr.html" rel="noopener noreferrer">Website</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>Learning & Career Centre (LCC) – Halifax</h3>
-        <div class="tags"><span class="tag">LCC</span></div>
-        <div class="actions">
-          <a class="act" href="tel:9027224304">Call (902) 722-4304</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>LifeSpeak (Access ID: canada)</h3>
-        <div class="tags"><span class="tag">Self-help</span></div>
-        <div class="actions">
-          <a class="act" href="https://caf.lifespeak.com/" rel="noopener noreferrer">Website</a>
-        </div>
-      </div>
-
-    </div>
-  </details>
-
-  <details class="section" open>
-    <summary>Civilian Employee Assistance</summary>
-    <div class="list">
-      
-      <div class="card">
-        <h3>Employee Assistance Services (Health Canada)</h3>
-        <div class="tags"><span class="tag">EAS</span> <a class="tag alt" href="tel:18005675803" aria-label="Alternate number (800) 567-5803">Alt: (800) 567-5803</a></div>
-        <div class="actions">
-          <a class="act" href="tel:18002687708">Call (800) 268-7708</a>
-          <a class="act" href="https://www.canada.ca/en/health-canada/services/employee-assistance-services.html" rel="noopener noreferrer">Website</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>NPF Employee & Family Assistance Program (E&FAP)</h3>
-        <div class="tags"><span class="tag">NPF</span></div>
-        <div class="actions">
-          <a class="act" href="tel:18003874765">Call (800) 387-4765</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>MARLANT EAP Manager</h3>
-        <div class="tags"><span class="tag">EAP</span></div>
-        <div class="actions">
-          <a class="act" href="tel:9024273237">Call (902) 427-3237</a>
-        </div>
-      </div>
-
-    </div>
-  </details>
-
-  <details class="section" open>
-    <summary>CAF Family Violence Crisis Team</summary>
-    <div class="list">
-      
-      <div class="card">
-        <h3>Team Lead – Social Worker</h3>
-        <div class="tags"></div>
-        <div class="actions"><a class="act" href="tel:9027218607">Call (902) 721-8607</a></div>
-      </div>
-
-      <div class="card">
-        <h3>MFRC Social Worker</h3>
-        <div class="tags"></div>
-        <div class="actions"><a class="act" href="tel:9024277788">Call (902) 427-7788</a></div>
-      </div>
-
-      <div class="card">
-        <h3>Base Chaplain (Office)</h3>
-        <div class="tags"></div>
-        <div class="actions"><a class="act" href="tel:9027218660">Call (902) 721-8660</a></div>
-      </div>
-
-      <div class="card">
-        <h3>MP Victim Services Coordinator</h3>
-        <div class="tags"></div>
-        <div class="actions"><a class="act" href="tel:9027224999">Call (902) 722-4999</a></div>
-      </div>
-
-    </div>
-  </details>
-</main>
-
-<footer class="small">
-  One-tap calling, texting, and direct links. Static file for GitHub Pages.
-</footer>
-
-<script>
-(function() {
-  var box = document.getElementById('q');
-  if (!box) return;
-  box.addEventListener('input', function(e) {
-    var q = (e.target.value || '').toLowerCase().trim();
-    document.querySelectorAll('.card').forEach(function(card) {
-      var hay = card.textContent.toLowerCase();
-      card.style.display = hay.indexOf(q) !== -1 ? '' : 'none';
-    });
-    document.querySelectorAll('.section').forEach(function(sec) {
-      var any = false;
-      sec.querySelectorAll('.card').forEach(function(card) { if (card.style.display !== 'none') any = true; });
-      sec.style.display = any ? '' : 'none';
-    });
-  });
-})();
-</script>
-</body>
-</html>
+    <section aria-label="CAF Health Services Centre (Atlantic)">
+      <h2>CAF
