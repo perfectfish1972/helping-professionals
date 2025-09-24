@@ -22,6 +22,15 @@
   header{padding:24px 8px 8px}
   h1{margin:0 0 6px;font-size:1.5rem;letter-spacing:.2px}
   .badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;position:sticky;top:0;z-index:10;background:linear-gradient(135deg,var(--bg1),var(--bg2));padding:8px 0 12px}
+/* Mobile-compacted sticky tabs */
+@media (max-width: 540px){
+  .badges{flex-wrap:nowrap;gap:6px;padding:6px 0;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .badges::-webkit-scrollbar{display:none}
+  .badge{padding:6px 10px;font-size:.85rem}
+  header{padding:14px 8px 4px}
+  h1{font-size:1.1rem;margin-bottom:4px}
+  section{margin:16px 0}
+}
   .badge{background:linear-gradient(90deg,var(--gradA),var(--gradB));color:var(--ink);border-radius:999px;
     padding:6px 10px;font-weight:600;border:1px solid var(--border)}
   section{margin:22px 0}
@@ -84,7 +93,7 @@
 
   <main id="content" tabindex="-1">
     <!-- Quick nav badges -->
-    <input id="q" placeholder="Search contacts…" aria-label="Search contacts" style="width:100%;margin:8px 0 12px;min-height:44px;border-radius:12px;border:1px solid var(--border);padding:10px 12px;">
+    <input id="q" placeholder="Search contacts…" aria-label="Search contacts" style="width:100%;margin:6px 0 8px;min-height:44px;border-radius:12px;border:1px solid var(--border);padding:10px 12px;">
     <nav aria-label="Section shortcuts" class="badges">
       <a class="badge" href="#cjb">CFB Halifax & Region</a>
       <a class="badge" href="#crisis">Emergency / Crisis</a>
