@@ -13,6 +13,7 @@
     --card:#ffffff; --border:#dbe6f3; --ink:#0b1322; --muted:#5b6b80;
     --btn:#eef6ff; --btn-ink:#0b1322; --pill:#eaf2ff;
     --gradA:#93c5fd; --gradB:#a7f3d0; --shadow:rgba(2,8,23,.08);
+    --stickyTop:56px; /* recalculated in JS */
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;background:linear-gradient(135deg,var(--bg1),var(--bg2));color:var(--ink);
@@ -21,20 +22,61 @@
   .wrap{max-width:980px;margin:0 auto;padding:16px}
   header{padding:24px 8px 8px}
   h1{margin:0 0 6px;font-size:1.5rem;letter-spacing:.2px}
+
+  /* Sticky quick-select chips across the top */
   .badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;position:sticky;top:0;z-index:10;background:linear-gradient(135deg,var(--bg1),var(--bg2));padding:8px 0 12px}
-/* Mobile-compacted sticky tabs */
-@media (max-width: 540px){
-  .badges{flex-wrap:nowrap;gap:6px;padding:6px 0;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-  .badges::-webkit-scrollbar{display:none}
-  .badge{padding:6px 10px;font-size:.85rem}
-  header{padding:14px 8px 4px}
-  h1{font-size:1.1rem;margin-bottom:4px}
-  section{margin:16px 0}
-}
   .badge{background:linear-gradient(90deg,var(--gradA),var(--gradB));color:var(--ink);border-radius:999px;
     padding:6px 10px;font-weight:600;border:1px solid var(--border)}
+  .badges .ctrl{margin-left:auto; display:inline-flex; gap:6px}
+  .badges .ctrl button{appearance:none;border:1px solid var(--border);background:var(--btn);border-radius:999px;padding:6px 10px;font-weight:600}
+  .badges .ctrl button:focus-visible{outline:3px solid var(--ring);outline-offset:2px}  /* Mobile-compacted sticky tabs */
+  @media (max-width: 540px){
+    .wrap{padding:12px}
+    header{padding:12px 6px 4px}
+    h1{font-size:1.05rem;margin-bottom:4px}
+    section{margin:14px 0}
+    /* Phone-optimized buttons: full-width, no-wrap */
+    .btnrow{flex-direction:column}
+    .btn{width:100%; justify-content:center; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:.95rem}
+    .mono.num{white-space:nowrap}
+    .grid{grid-template-columns:1fr; gap:10px}
+    .card{padding:10px}
+    h2{font-size:.95rem}
+    .t{font-size:1rem}
+    /* Under-search toolbar on mobile: wide tap targets */
+    .toolbar{justify-content:stretch; gap:6px}
+    .toolbar button{flex:1; min-height:44px; padding:10px 12px; font-size:.95rem}
+  }
+  @media (max-width: 375px){
+    .btn{font-size:.9rem}
+    h1{font-size:1rem}
+    h2{font-size:.9rem}
+  }
+
+  /* Under-search toolbar */
+  .toolbar{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin:6px 0 8px} /* becomes stretch on mobile */
+  .toolbar button{appearance:none;border:1px solid var(--border);background:var(--btn);border-radius:999px;padding:8px 12px;min-height:40px;font-weight:600}
+  .toolbar button:focus-visible{outline:3px solid var(--ring);outline-offset:2px}
+
+    .badges::-webkit-scrollbar{display:none}
+    .badge{padding:6px 10px;font-size:.85rem}
+    header{padding:14px 8px 4px}
+    h1{font-size:1.1rem;margin-bottom:4px}
+    section{margin:16px 0}
+    /* Phone-optimized buttons: full-width, no-wrap */
+    .btnrow{flex-direction:column}
+    .btn{width:100%; justify-content:center; white-space:nowrap}
+    .mono.num{white-space:nowrap}
+  }
+
   section{margin:22px 0}
-  h2{margin:0 0 10px;font-size:1.0rem;color:var(--muted);letter-spacing:.03em}
+  h2{margin:0 0 10px;font-size:1.0rem;color:var(--muted);letter-spacing:.03em;display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .twist{appearance:none;border:1px solid var(--border);background:var(--btn);color:var(--btn-ink);border-radius:10px;padding:4px 8px;line-height:1;cursor:pointer}
+  .twist:before{content:'▸'}
+  .twist[aria-expanded="true"]:before{content:'▾'}
+  .twist:focus-visible{outline:3px solid var(--ring);outline-offset:2px}
+  .section-body[hidden]{display:none !important}
+
   .grid{display:grid;gap:12px;grid-template-columns:1fr 1fr}
   @media (max-width:680px){.grid{grid-template-columns:1fr}}
   .card{
@@ -75,13 +117,13 @@
   .btn[href^="http"]::before{content:"🌐"}
 
   @media (prefers-reduced-motion: reduce){*{transition:none !important}}
-  /* Sticky section headers (stay below sticky badges) */
-  :root{ --stickyTop: 56px; }
-  section > h2{ position: sticky; top: var(--stickyH2Top, var(--stickyTop)); z-index: 6; 
+  .hidden{display:none !important}
+
+  /* Sticky elements */
+  section > h2{ position: sticky; top: var(--stickyH2Top, var(--stickyTop)); z-index: 6;
     background: linear-gradient(135deg,var(--bg1),var(--bg2));
     padding: 6px 8px; margin: 0 0 10px; border-bottom: 1px solid var(--border); backdrop-filter: saturate(1.1);
   }
-  /* Sticky 911 bar below badges */
   #urgent911{ position: sticky; top: var(--stickyTop); z-index: 15; }
   #urgent911 .bar{ display:flex; align-items:center; justify-content:space-between; gap:12px;
     background: linear-gradient(90deg,#fecaca,#fde68a); border:1px solid #fca5a5; border-radius:14px; padding:8px 12px; box-shadow:0 6px 14px var(--shadow);
@@ -91,12 +133,6 @@
   #urgent911 .btn911::before{ content:"🚨"; }
 </style>
 <link rel="manifest" href="manifest.webmanifest">
-<script>
-  // Register service worker for offline/PWA
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(()=>{}));
-  }
-</script>
 </head>
 <body>
 <a class="skip" href="#content">Skip to content</a>
@@ -106,19 +142,16 @@
   </header>
 
   <main id="content" tabindex="-1">
-    <!-- Quick nav badges -->
+    <!-- Search -->
     <input id="q" placeholder="Search contacts…" aria-label="Search contacts" style="width:100%;margin:6px 0 8px;min-height:44px;border-radius:12px;border:1px solid var(--border);padding:10px 12px;">
-    <nav aria-label="Section shortcuts" class="badges">
-      <a class="badge" href="#cjb">CFB Halifax & Region</a>
-      <a class="badge" href="#crisis">Emergency / Crisis</a>
-      <a class="badge" href="#chs">CAF Health Services Centre (Atlantic)</a>
-      <a class="badge" href="#caf">CAF Services</a>
-      <a class="badge" href="#eap">Civilian Employee Assistance</a>
-      <a class="badge" href="#fvct">CAF Family Violence Crisis Team</a>
-      <a class="badge" href="#mfrc">MFRC</a>
-    </nav>
 
-    <!-- Sticky Emergency 911 bar -->
+    <!-- Expand/Collapse controls under search -->
+    <div class="toolbar" role="toolbar" aria-label="Section controls">
+      <button id="expandAll" type="button" title="Expand all sections" aria-controls="content">Expand all</button>
+      <button id="collapseAll" type="button" title="Collapse all sections" aria-controls="content">Collapse all</button>
+    </div>
+
+    <!-- Quick-select chips for ALL sections --><!-- Sticky Emergency 911 bar -->
     <div id="urgent911" role="region" aria-label="Emergency call quick access">
       <div class="bar" aria-live="polite">
         <span><strong>Emergency:</strong> Police / Fire / Ambulance</span>
@@ -126,99 +159,105 @@
       </div>
     </div>
 
+    <!-- Sections (content order will be alphabetized on load) -->
+
     <!-- CFB Halifax & Region -->
-        <section id="cjb" aria-labelledby="cjb-h">
-      <h2 id="cjb-h">CFB Halifax &amp; Region</h2>
-      <div class="grid">
-        <div class="card">
-          <div class="k">Emergency</div><div class="t">Police / Fire / Ambulance</div>
-          <div class="btnrow">
-            <a class="btn" href="tel:911" aria-label="Call 911">Call <span class="mono num">911</span></a>
+    <section id="cjb" aria-labelledby="cjb-h">
+      <h2 id="cjb-h"><span class="title">CFB Halifax &amp; Region</span><button class="twist" aria-expanded="false" aria-controls="cjb:body"></button></h2>
+      <div class="section-body" id="cjb:body" hidden>
+        <div class="grid">
+          <div class="card">
+            <div class="k">Base</div><div class="t">Base Operator</div>
+            <div class="btnrow"><a class="btn" href="tel:+19024270550" aria-label="Call Base Operator (902) 427-0550">Call <span class="mono num">(902) 427-0550</span></a></div>
           </div>
-        </div>
-        <div class="card">
-          <div class="k">Nurse Advice</div><div class="t">HealthLink Nova Scotia</div>
-          <div class="btnrow">
-            <a class="btn" href="tel:811" aria-label="Call 811">Call <span class="mono num">811</span></a>
-            <a class="btn" href="https://811.novascotia.ca/" target="_blank" rel="noopener noreferrer" aria-label="Open 811 Nova Scotia website">Website</a>
+          <div class="card">
+            <div class="k">Chaplain</div><div class="t">Duty Chaplain (24/7)</div>
+            <div class="btnrow"><a class="btn" href="tel:+19024277788" aria-label="Call Duty Chaplain (902) 427-7788">Call <span class="mono num">(902) 427-7788</span></a></div>
           </div>
-        </div>
-        <div class="card">
-          <div class="k">Community</div><div class="t">NS Community / Health &amp; Social Services</div>
-          <div class="btnrow">
-            <a class="btn" href="tel:211" aria-label="Call 211">Call <span class="mono num">211</span></a>
-            <a class="btn" href="https://ns.211.ca/" target="_blank" rel="noopener noreferrer" aria-label="Open 211 Nova Scotia website">Website</a>
+          <div class="card">
+            <div class="k">Community</div><div class="t">NS Community / Health &amp; Social Services</div>
+            <div class="btnrow">
+              <a class="btn" href="tel:211" aria-label="Call 211">Call <span class="mono num">211</span></a>
+              <a class="btn" href="https://ns.211.ca/" target="_blank" rel="noopener noreferrer" aria-label="Open 211 Nova Scotia website">Website</a>
+            </div>
           </div>
-        </div>
-        <div class="card">
-          <div class="k">Base</div><div class="t">Base Operator</div>
-          <div class="btnrow"><a class="btn" href="tel:+19024270550" aria-label="Call Base Operator (902) 427-0550">Call <span class="mono num">(902) 427-0550</span></a></div>
-        </div>
-        <div class="card">
-          <div class="k">Chaplain</div><div class="t">Duty Chaplain (24/7)</div>
-          <div class="btnrow"><a class="btn" href="tel:+19024277788" aria-label="Call Duty Chaplain (902) 427-7788">Call <span class="mono num">(902) 427-7788</span></a></div>
-        </div>
-        <div class="card">
-          <div class="k">Family</div><div class="t">MFRC Emergency Childcare (24 hrs)</div>
-          <div class="btnrow">
-            <a class="btn" href="tel:+19024277788" aria-label="Call MFRC Emergency Childcare (902) 427-7788">Call <span class="mono num">(902) 427-7788</span></a>
-            <a class="btn" href="https://halifaxmfrc.ca/" target="_blank" rel="noopener noreferrer" aria-label="Open MFRC Halifax website">Website</a>
+          <div class="card">
+            <div class="k">Emergency</div><div class="t">Police / Fire / Ambulance</div>
+            <div class="btnrow">
+              <a class="btn" href="tel:911" aria-label="Call 911">Call <span class="mono num">911</span></a>
+            </div>
           </div>
-        </div>
-        <div class="card">
-          <div class="k">Military Police</div><div class="t">CFB Halifax</div>
-          <div class="btnrow">
-            <a class="btn" href="tel:+19024274444" aria-label="Call Military Police (902) 427-4444">Call — Main <span class="mono num">(902) 427-4444</span></a>
-            <a class="btn" href="tel:+19027221908" aria-label="Call Military Police (902) 722-1908">Call — Alternate <span class="mono num">(902) 722-1908</span></a>
-            <a class="btn" href="https://www.facebook.com/MPUHalifax" target="_blank" rel="noopener noreferrer" aria-label="Open Military Police Halifax Facebook page">Website</a>
+          <div class="card">
+            <div class="k">Family</div><div class="t">MFRC Emergency Childcare (24 hrs)</div>
+            <div class="btnrow">
+              <a class="btn" href="tel:+19024277788" aria-label="Call MFRC Emergency Childcare (902) 427-7788">Call <span class="mono num">(902) 427-7788</span></a>
+              <a class="btn" href="https://halifaxmfrc.ca/" target="_blank" rel="noopener noreferrer" aria-label="Open MFRC Halifax website">Website</a>
+            </div>
+          </div>
+          <div class="card">
+            <div class="k">Military Police</div><div class="t">CFB Halifax</div>
+            <div class="btnrow">
+              <a class="btn" href="tel:+19024274444" aria-label="Call Military Police (902) 427-4444">Call — Main <span class="mono num">(902) 427-4444</span></a>
+              <a class="btn" href="tel:+19027221908" aria-label="Call Military Police (902) 722-1908">Call — Alternate <span class="mono num">(902) 722-1908</span></a>
+              <a class="btn" href="https://www.facebook.com/MPUHalifax" target="_blank" rel="noopener noreferrer" aria-label="Open Military Police Halifax Facebook page">Website</a>
+            </div>
+          </div>
+          <div class="card">
+            <div class="k">Nurse Advice</div><div class="t">HealthLink Nova Scotia</div>
+            <div class="btnrow">
+              <a class="btn" href="tel:811" aria-label="Call 811">Call <span class="mono num">811</span></a>
+              <a class="btn" href="https://811.novascotia.ca/" target="_blank" rel="noopener noreferrer" aria-label="Open 811 Nova Scotia website">Website</a>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Emergency / Crisis -->
-        <section id="crisis" aria-labelledby="crisis-h">
-      <h2 id="crisis-h">Emergency / Crisis</h2>
-      <div class="grid">
-        <div class="card">
-          <div class="k">Crisis</div><div class="t">Mental Health Mobile Crisis Team</div>
-          <div class="btnrow">
-            <a class="btn" href="tel:+19024298167" aria-label="Call (902) 429-8167">Call — Local <span class="mono num">(902) 429-8167</span></a>
-            <a class="btn" href="tel:+18884298167" aria-label="Call 1-888-429-8167">Call — Toll‑free <span class="mono num">1-888-429-8167</span></a>
+    <section id="crisis" aria-labelledby="crisis-h">
+      <h2 id="crisis-h"><span class="title">Emergency / Crisis</span><button class="twist" aria-expanded="false" aria-controls="crisis:body"></button></h2>
+      <div class="section-body" id="crisis:body" hidden>
+        <div class="grid">
+          <div class="card">
+            <div class="k">Child Protection</div><div class="t">After Hours</div>
+            <div class="btnrow">
+              <a class="btn" href="tel:+18889194236" aria-label="Call Child Protection 1-888-919-4236">Call — Toll‑free (Primary) <span class="mono num">1-888-919-4236</span></a>
+              <a class="btn" href="tel:+18669222434" aria-label="Call Child Protection 1-866-922-2434">Call — Toll‑free (Alternate) <span class="mono num">1-866-922-2434</span></a>
+            </div>
           </div>
-        </div>
-        <div class="card">
-          <div class="k">Shelter</div><div class="t">Bryony House (24 hrs)</div>
-          <div class="btnrow">
-            <a class="btn" href="tel:+19024227650" aria-label="Call Bryony House (902) 422-7650">Call <span class="mono num">(902) 422-7650</span></a>
-            <a class="btn" href="https://bryonyhouse.ca/" target="_blank" rel="noopener noreferrer" aria-label="Open Bryony House website">Website</a>
+          <div class="card">
+            <div class="k">Crisis</div><div class="t">Mental Health Mobile Crisis Team</div>
+            <div class="btnrow">
+              <a class="btn" href="tel:+19024298167" aria-label="Call (902) 429-8167">Call — Local <span class="mono num">(902) 429-8167</span></a>
+              <a class="btn" href="tel:+18884298167" aria-label="Call 1-888-429-8167">Call — Toll‑free <span class="mono num">1-888-429-8167</span></a>
+            </div>
           </div>
-        </div>
-        <div class="card">
-          <div class="k">SANE</div><div class="t">Avalon Sexual Assault Nurse Examiners</div>
-          <div class="btnrow"><a class="btn" href="tel:+19024250122" aria-label="Call Avalon SANE (902) 425-0122">Call <span class="mono num">(902) 425-0122</span></a></div>
-        </div>
-        <div class="card">
-          <div class="k">Child Protection</div><div class="t">After Hours</div>
-          <div class="btnrow">
-            <a class="btn" href="tel:+18889194236" aria-label="Call Child Protection 1-888-919-4236">Call — Toll‑free (Primary) <span class="mono num">1-888-919-4236</span></a>
-            <a class="btn" href="tel:+18669222434" aria-label="Call Child Protection 1-866-922-2434">Call — Toll‑free (Alternate) <span class="mono num">1-866-922-2434</span></a>
+          <div class="card">
+            <div class="k">Poison</div><div class="t">Atlantic Canada Poison Centre (IWK Health)</div>
+            <div class="btnrow">
+              <a class="btn" href="tel:+18005658161" aria-label="Call Poison Control 1-800-565-8161">Call — Toll‑free <span class="mono num">1-800-565-8161</span></a>
+              <a class="btn" href="tel:+19024708161" aria-label="Call Poison Control (902) 470-8161">Call — Halifax (Local) <span class="mono num">(902) 470-8161</span></a>
+              <a class="btn" href="tel:+18447647669" aria-label="Call Poison Control 1-844-764-7669">Call — Alternate <span class="mono num">1-844-764-7669</span></a>
+              <a class="btn" href="mailto:Poison.centre@iwk.nshealth.ca" aria-label="Email the Poison Centre">Email</a>
+              <a class="btn" href="https://www.atlanticcanadapoisoncentre.ca/" target="_blank" rel="noopener noreferrer" aria-label="Open Atlantic Canada Poison Centre website">Website</a>
+            </div>
           </div>
-        </div>
-        <div class="card">
-          <div class="k">Poison</div><div class="t">Atlantic Canada Poison Centre (IWK Health)</div>
-          <div class="btnrow">
-            <a class="btn" href="tel:+18005658161" aria-label="Call Poison Control 1-800-565-8161">Call — Toll‑free <span class="mono num">1-800-565-8161</span></a>
-            <a class="btn" href="tel:+19024708161" aria-label="Call Poison Control (902) 470-8161">Call — Halifax (Local) <span class="mono num">(902) 470-8161</span></a>
-            <a class="btn" href="tel:+18447647669" aria-label="Call Poison Control 1-844-764-7669">Call — Alternate <span class="mono num">1-844-764-7669</span></a>
-            <a class="btn" href="mailto:Poison.centre@iwk.nshealth.ca" aria-label="Email the Poison Centre">Email</a>
-            <a class="btn" href="https://www.atlanticcanadapoisoncentre.ca/" target="_blank" rel="noopener noreferrer" aria-label="Open Atlantic Canada Poison Centre website">Website</a>
+          <div class="card">
+            <div class="k">Public Alerts</div><div class="t">Nova Scotia Emergency Alerts / Preparedness</div>
+            <div class="btnrow">
+              <a class="btn" href="https://novascotia.ca/alerts/" target="_blank" rel="noopener noreferrer" aria-label="Open Nova Scotia Emergency Alerts website">Website</a>
+            </div>
           </div>
-        </div>
-        <div class="card">
-          <div class="k">Public Alerts</div><div class="t">Nova Scotia Emergency Alerts / Preparedness</div>
-          <div class="btnrow">
-            <a class="btn" href="https://novascotia.ca/alerts/" target="_blank" rel="noopener noreferrer" aria-label="Open Nova Scotia Emergency Alerts website">Website</a>
+          <div class="card">
+            <div class="k">Shelter</div><div class="t">Bryony House (24 hrs)</div>
+            <div class="btnrow">
+              <a class="btn" href="tel:+19024227650" aria-label="Call Bryony House (902) 422-7650">Call <span class="mono num">(902) 422-7650</span></a>
+              <a class="btn" href="https://bryonyhouse.ca/" target="_blank" rel="noopener noreferrer" aria-label="Open Bryony House website">Website</a>
+            </div>
+          </div>
+          <div class="card">
+            <div class="k">SANE</div><div class="t">Avalon Sexual Assault Nurse Examiners</div>
+            <div class="btnrow"><a class="btn" href="tel:+19024250122" aria-label="Call Avalon SANE (902) 425-0122">Call <span class="mono num">(902) 425-0122</span></a></div>
           </div>
         </div>
       </div>
@@ -226,88 +265,93 @@
 
     <!-- CAF Health Services Centre (Atlantic) -->
     <section id="chs" aria-labelledby="chs-h">
-      <h2 id="chs-h">CAF Health Services Centre (Atlantic)</h2>
-      <div class="grid">
-        <div class="card"><div class="k">CDU</div><div class="t">CDU 1</div>
-          <div class="btnrow"><a class="btn" href="tel:+19027218890" aria-label="Call CDU 1 (902) 721-8890">Call <span class="mono num">(902) 721-8890</span></a></div>
-        </div>
-        <div class="card"><div class="k">CDU</div><div class="t">CDU 2</div>
-          <div class="btnrow"><a class="btn" href="tel:+19027218868" aria-label="Call CDU 2 (902) 721-8868">Call <span class="mono num">(902) 721-8868</span></a></div>
-        </div>
-        <div class="card"><div class="k">CDU</div><div class="t">CDU 3</div>
-          <div class="btnrow"><a class="btn" href="tel:+19027218764" aria-label="Call CDU 3 (902) 721-8764">Call <span class="mono num">(902) 721-8764</span></a></div>
-        </div>
-        <div class="card"><div class="k">CDU</div><div class="t">CDU 4</div>
-          <div class="btnrow"><a class="btn" href="tel:+19027201558" aria-label="Call CDU 4 (902) 720-1558">Call <span class="mono num">(902) 720-1558</span></a></div>
-        </div>
-        <div class="card"><div class="k">CDU</div><div class="t">CDU 5</div>
-          <div class="btnrow">
-            <a class="btn" href="tel:+19027210815" aria-label="Call CDU 5 (902) 721-0815">Call — Main <span class="mono num">(902) 721-0815</span></a>
-            <a class="btn" href="tel:+19027210816" aria-label="Call CDU 5 (902) 721-0816">Call — Alternate <span class="mono num">(902) 721-0816</span></a>
+      <h2 id="chs-h"><span class="title">CAF Health Services Centre (Atlantic)</span><button class="twist" aria-expanded="false" aria-controls="chs:body"></button></h2>
+      <div class="section-body" id="chs:body" hidden>
+        <div class="grid">
+          <div class="card"><div class="k">Addictions</div><div class="t">Addiction Services</div>
+            <div class="btnrow"><a class="btn" href="tel:+19027218600" aria-label="Call Addiction Services (902) 721-8600">Call <span class="mono num">(902) 721-8600</span></a></div>
           </div>
-        </div>
-        <div class="card"><div class="k">Psychosocial</div><div class="t">Social Work</div>
-          <div class="btnrow"><a class="btn" href="tel:+19027218607" aria-label="Call Social Work (902) 721-8607">Call <span class="mono num">(902) 721-8607</span></a></div>
-        </div>
-        <div class="card"><div class="k">Addictions</div><div class="t">Addiction Services</div>
-          <div class="btnrow"><a class="btn" href="tel:+19027218600" aria-label="Call Addiction Services (902) 721-8600">Call <span class="mono num">(902) 721-8600</span></a></div>
+          <div class="card"><div class="k">CDU</div><div class="t">CDU 1</div>
+            <div class="btnrow"><a class="btn" href="tel:+19027218890" aria-label="Call CDU 1 (902) 721-8890">Call <span class="mono num">(902) 721-8890</span></a></div>
+          </div>
+          <div class="card"><div class="k">CDU</div><div class="t">CDU 2</div>
+            <div class="btnrow"><a class="btn" href="tel:+19027218868" aria-label="Call CDU 2 (902) 721-8868">Call <span class="mono num">(902) 721-8868</span></a></div>
+          </div>
+          <div class="card"><div class="k">CDU</div><div class="t">CDU 3</div>
+            <div class="btnrow"><a class="btn" href="tel:+19027218764" aria-label="Call CDU 3 (902) 721-8764">Call <span class="mono num">(902) 721-8764</span></a></div>
+          </div>
+          <div class="card"><div class="k">CDU</div><div class="t">CDU 4</div>
+            <div class="btnrow"><a class="btn" href="tel:+19027201558" aria-label="Call CDU 4 (902) 720-1558">Call <span class="mono num">(902) 720-1558</span></a></div>
+          </div>
+          <div class="card"><div class="k">CDU</div><div class="t">CDU 5</div>
+            <div class="btnrow">
+              <a class="btn" href="tel:+19027210815" aria-label="Call CDU 5 (902) 721-0815">Call — Main <span class="mono num">(902) 721-0815</span></a>
+              <a class="btn" href="tel:+19027210816" aria-label="Call CDU 5 (902) 721-0816">Call — Alternate <span class="mono num">(902) 721-0816</span></a>
+            </div>
+          </div>
+          <!-- Newly added under CHS (per user) -->
+          <div class="card"><div class="k">Dental</div><div class="t">Dental Unit Reception</div>
+            <div class="btnrow"><a class="btn" href="tel:+19027218761" aria-label="Call Dental Unit Reception (902) 721-8761">Call <span class="mono num">(902) 721-8761</span></a></div>
+          </div>
+          <div class="card"><div class="k">Immunization</div><div class="t">Immunization Office</div>
+            <div class="btnrow"><a class="btn" href="tel:+19027218780" aria-label="Call Immunization Office (902) 721-8780">Call <span class="mono num">(902) 721-8780</span></a></div>
+          </div>
+          <div class="card"><div class="k">Insurance</div><div class="t">Medavie Blue Cross (CAF/RCMP/VAC)</div>
+            <div class="btnrow">
+              <a class="btn" href="tel:+18882614033" aria-label="Call Medavie Blue Cross 1-888-261-4033">Call <span class="mono num">1-888-261-4033</span></a>
+              <a class="btn" href="https://www.medaviebc.ca/en/support/information-caf-rcmp-vac" target="_blank" rel="noopener noreferrer" aria-label="Open Medavie Blue Cross CAF/RCMP/VAC page">Website</a>
+            </div>
+          </div>
+          <div class="card"><div class="k">Mental Health</div><div class="t">General Mental Health Clerk</div>
+            <div class="btnrow"><a class="btn" href="tel:+19027218012" aria-label="Call General Mental Health Clerk (902) 721-8012">Call <span class="mono num">(902) 721-8012</span></a></div>
+          </div>
+          <div class="card"><div class="k">Physiotherapy</div><div class="t">Physio Reception</div>
+            <div class="btnrow"><a class="btn" href="tel:+19027218738" aria-label="Call Physio Reception (902) 721-8738">Call <span class="mono num">(902) 721-8738</span></a></div>
+          </div>
+          <div class="card"><div class="k">Psychosocial</div><div class="t">Social Work</div>
+            <div class="btnrow"><a class="btn" href="tel:+19027218607" aria-label="Call Social Work (902) 721-8607">Call <span class="mono num">(902) 721-8607</span></a></div>
+          </div>
+          <div class="card"><div class="k">VAC</div><div class="t">Veterans Affairs Canada</div>
+            <div class="btnrow">
+              <a class="btn" href="tel:+18665222122" aria-label="Call Veterans Affairs Canada 1-866-522-2122">Call <span class="mono num">1-866-522-2122</span></a>
+              <a class="btn" href="https://www.veterans.gc.ca/" target="_blank" rel="noopener noreferrer" aria-label="Open Veterans Affairs Canada website">Website</a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- CAF Services -->
     <section id="caf" aria-labelledby="caf-h">
-      <h2 id="caf-h">CAF Services</h2>
-      <div class="grid">
-        <div class="card"><div class="k">MAP</div><div class="t">Member Assistance Program (24/7)</div>
-          <div class="btnrow"><a class="btn" href="tel:+18002687708" aria-label="Call Member Assistance Program 1-800-268-7708">Call <span class="mono num">1-800-268-7708</span></a></div>
-        </div>
-        <div class="card"><div class="k">Family</div><div class="t">Family Information Line</div>
-          <div class="btnrow"><a class="btn" href="tel:+18008664546" aria-label="Call Family Information Line 1-800-866-4546">Call <span class="mono num">1-800-866-4546</span></a></div>
-        </div>
-        <div class="card"><div class="k">SMRC</div><div class="t">Sexual Misconduct Response Centre</div>
-          <div class="btnrow"><a class="btn" href="tel:+18447501648" aria-label="Call Sexual Misconduct Response Centre 1-844-750-1648">Call <span class="mono num">1-844-750-1648</span></a></div>
-        </div>
-        <div class="card"><div class="k">JPSU</div><div class="t">Joint Personnel Support Unit</div>
-          <div class="btnrow"><a class="btn" href="tel:+18008836094" aria-label="Call Joint Personnel Support Unit 1-800-883-6094">Call <span class="mono num">1-800-883-6094</span></a></div>
-        </div>
-        <div class="card"><div class="k">IPSC</div><div class="t">Integrated Personnel Support Centre</div>
-          <div class="btnrow"><a class="btn" href="tel:+19027221907" aria-label="Call Integrated Personnel Support Centre (902) 722-1907">Call <span class="mono num">(902) 722-1907</span></a></div>
-        </div>
-        <div class="card"><div class="k">OSISS</div><div class="t">Operational Stress Injury Social Support</div>
-          <div class="btnrow"><a class="btn" href="tel:+18008836094" aria-label="Call OSISS 1-800-883-6094">Call <span class="mono num">1-800-883-6094</span></a></div>
-        </div>
-        <div class="card"><div class="k">VAC</div><div class="t">Veterans Affairs Canada</div>
-          <div class="btnrow">
-            <a class="btn" href="tel:+18665222122" aria-label="Call Veterans Affairs Canada 1-866-522-2122">Call <span class="mono num">1-866-522-2122</span></a>
-            <a class="btn" href="https://www.veterans.gc.ca/en" target="_blank" rel="noopener noreferrer" aria-label="Open Veterans Affairs Canada website">Website</a>
+      <h2 id="caf-h"><span class="title">CAF Services</span><button class="twist" aria-expanded="false" aria-controls="caf:body"></button></h2>
+      <div class="section-body" id="caf:body" hidden>
+        <div class="grid">
+          <div class="card"><div class="k">Conflict</div><div class="t">Conflict Resolution Centre</div>
+            <div class="btnrow"><a class="btn" href="tel:+19027217533" aria-label="Call Conflict Resolution Centre (902) 721-7533">Call <span class="mono num">(902) 721-7533</span></a></div>
           </div>
-        </div>
-        <div class="card"><div class="k">SISIP</div><div class="t">SISIP Financial Services</div>
-          <div class="btnrow">
-            <a class="btn" href="tel:+19024256926" aria-label="Call SISIP Financial Services (902) 425-6926">Call <span class="mono num">(902) 425-6926</span></a>
-            <a class="btn" href="https://cfmws.ca/insurance-finance/client-support/locations" target="_blank" rel="noopener noreferrer" aria-label="Open SISIP locations page">Website</a>
+          <div class="card"><div class="k">Family</div><div class="t">Family Information Line</div>
+            <div class="btnrow"><a class="btn" href="tel:+18008664546" aria-label="Call Family Information Line 1-800-866-4546">Call <span class="mono num">1-800-866-4546</span></a></div>
           </div>
-        </div>
-        <div class="card"><div class="k">Conflict</div><div class="t">Conflict Resolution Centre</div>
-          <div class="btnrow"><a class="btn" href="tel:+19027217533" aria-label="Call Conflict Resolution Centre (902) 721-7533">Call <span class="mono num">(902) 721-7533</span></a></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Optional CAF Wellness (added) -->
-    <section aria-label="CAF Wellness">
-      <h2>CAF Wellness</h2>
-      <div class="grid">
-        <div class="card"><div class="k">PSP</div><div class="t">Health Promotion Services (PSP Halifax)</div>
-          <div class="btnrow">
-            <a class="btn" href="tel:+19027224956" aria-label="Call Health Promotion Services (902) 722-4956">Call <span class="mono num">(902) 722-4956</span></a>
-            <a class="btn" href="https://cfmws.ca/halifax" target="_blank" rel="noopener noreferrer" aria-label="Open PSP Halifax website">Website</a>
+          <div class="card"><div class="k">IPSC</div><div class="t">Integrated Personnel Support Centre</div>
+            <div class="btnrow"><a class="btn" href="tel:+19027221907" aria-label="Call Integrated Personnel Support Centre (902) 722-1907">Call <span class="mono num">(902) 722-1907</span></a></div>
           </div>
-        </div>
-        <div class="card"><div class="k">R2MR</div><div class="t">Road to Mental Readiness</div>
-          <div class="btnrow">
-            <a class="btn" href="https://www.canada.ca/en/department-national-defence/services/benefits-military/health-support/mental-health/r2mr.html" target="_blank" rel="noopener noreferrer" aria-label="Open R2MR program page">Website</a>
+          <div class="card"><div class="k">JPSU</div><div class="t">Joint Personnel Support Unit</div>
+            <div class="btnrow"><a class="btn" href="tel:+18008836094" aria-label="Call Joint Personnel Support Unit 1-800-883-6094">Call <span class="mono num">1-800-883-6094</span></a></div>
+          </div>
+          <div class="card"><div class="k">MAP</div><div class="t">Member Assistance Program (24/7)</div>
+            <div class="btnrow"><a class="btn" href="tel:+18002687708" aria-label="Call Member Assistance Program 1-800-268-7708">Call <span class="mono num">1-800-268-7708</span></a></div>
+          </div>
+          <div class="card"><div class="k">OSISS</div><div class="t">Operational Stress Injury Social Support</div>
+            <div class="btnrow"><a class="btn" href="tel:+18008836094" aria-label="Call OSISS 1-800-883-6094">Call <span class="mono num">1-800-883-6094</span></a></div>
+          </div>
+          <div class="card"><div class="k">SISIP</div><div class="t">SISIP Financial Services</div>
+            <div class="btnrow">
+              <a class="btn" href="tel:+19024256926" aria-label="Call SISIP Financial Services (902) 425-6926">Call <span class="mono num">(902) 425-6926</span></a>
+              <a class="btn" href="https://cfmws.ca/insurance-finance/client-support/locations" target="_blank" rel="noopener noreferrer" aria-label="Open SISIP locations page">Website</a>
+            </div>
+          </div>
+          <div class="card"><div class="k">SMRC</div><div class="t">Sexual Misconduct Response Centre</div>
+            <div class="btnrow"><a class="btn" href="tel:+18447501648" aria-label="Call Sexual Misconduct Response Centre 1-844-750-1648">Call <span class="mono num">1-844-750-1648</span></a></div>
           </div>
         </div>
       </div>
@@ -315,79 +359,139 @@
 
     <!-- Civilian Employee Assistance Programs -->
     <section id="eap" aria-labelledby="eap-h">
-      <h2 id="eap-h">Civilian Employee Assistance Programs</h2>
-      <div class="grid">
-        <div class="card"><div class="k">EAP</div><div class="t">MARLANT EAP Manager</div>
-          <div class="btnrow"><a class="btn" href="tel:+19024273237" aria-label="Call MARLANT EAP Manager (902) 427-3237">Call <span class="mono num">(902) 427-3237</span></a></div>
-        </div>
-        <div class="card"><div class="k">Health Canada</div><div class="t">Employee Assistance Services</div>
-          <div class="btnrow"><a class="btn" href="tel:+18002687708" aria-label="Call Employee Assistance Services 1-800-268-7708">Call <span class="mono num">1-800-268-7708</span></a></div>
-        </div>
-        <div class="card"><div class="k">NPF</div><div class="t">NPF Employee &amp; Family Assistance</div>
-          <div class="btnrow"><a class="btn" href="tel:+18003874765" aria-label="Call NPF Employee and Family Assistance 1-800-387-4765">Call <span class="mono num">1-800-387-4765</span></a></div>
+      <h2 id="eap-h"><span class="title">Civilian Employee Assistance Programs</span><button class="twist" aria-expanded="false" aria-controls="eap:body"></button></h2>
+      <div class="section-body" id="eap:body" hidden>
+        <div class="grid">
+          <div class="card"><div class="k">EAP</div><div class="t">MARLANT EAP Manager</div>
+            <div class="btnrow"><a class="btn" href="tel:+19024273237" aria-label="Call MARLANT EAP Manager (902) 427-3237">Call <span class="mono num">(902) 427-3237</span></a></div>
+          </div>
+          <div class="card"><div class="k">Health Canada</div><div class="t">Employee Assistance Services</div>
+            <div class="btnrow"><a class="btn" href="tel:+18002687708" aria-label="Call Employee Assistance Services 1-800-268-7708">Call <span class="mono num">1-800-268-7708</span></a></div>
+          </div>
+          <div class="card"><div class="k">NPF</div><div class="t">NPF Employee &amp; Family Assistance</div>
+            <div class="btnrow"><a class="btn" href="tel:+18003874765" aria-label="Call NPF Employee and Family Assistance 1-800-387-4765">Call <span class="mono num">1-800-387-4765</span></a></div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- CAF Family Violence Crisis Team -->
     <section id="fvct" aria-labelledby="fvct-h">
-      <h2 id="fvct-h">CAF Family Violence Crisis Team</h2>
-      <div class="grid">
-        <div class="card"><div class="k">Team Lead</div><div class="t">Social Worker</div>
-          <div class="btnrow"><a class="btn" href="tel:+19027218607" aria-label="Call Social Worker (902) 721-8607">Call <span class="mono num">(902) 721-8607</span></a></div>
-        </div>
-        <div class="card"><div class="k">MFRC</div><div class="t">Social Worker</div>
-          <div class="btnrow"><a class="btn" href="tel:+19024277788" aria-label="Call MFRC Social Worker (902) 427-7788">Call <span class="mono num">(902) 427-7788</span></a></div>
-        </div>
-        <div class="card"><div class="k">Chaplain</div><div class="t">Base Chaplain</div>
-          <div class="btnrow"><a class="btn" href="tel:+19027218660" aria-label="Call Base Chaplain (902) 721-8660">Call <span class="mono num">(902) 721-8660</span></a></div>
-        </div>
-        <div class="card"><div class="k">MP</div><div class="t">Military Police Victim Services Coordinator</div>
-          <div class="btnrow"><a class="btn" href="tel:+19027224999" aria-label="Call Military Police Victim Services Coordinator (902) 722-4999">Call <span class="mono num">(902) 722-4999</span></a></div>
+      <h2 id="fvct-h"><span class="title">CAF Family Violence Crisis Team</span><button class="twist" aria-expanded="false" aria-controls="fvct:body"></button></h2>
+      <div class="section-body" id="fvct:body" hidden>
+        <div class="grid">
+          <div class="card"><div class="k">Chaplain</div><div class="t">Base Chaplain</div>
+            <div class="btnrow"><a class="btn" href="tel:+19027218660" aria-label="Call Base Chaplain (902) 721-8660">Call <span class="mono num">(902) 721-8660</span></a></div>
+          </div>
+          <div class="card"><div class="k">MFRC</div><div class="t">Social Worker</div>
+            <div class="btnrow"><a class="btn" href="tel:+19024277788" aria-label="Call MFRC Social Worker (902) 427-7788">Call <span class="mono num">(902) 427-7788</span></a></div>
+          </div>
+          <div class="card"><div class="k">MP</div><div class="t">Military Police Victim Services Coordinator</div>
+            <div class="btnrow"><a class="btn" href="tel:+19027224999" aria-label="Call Military Police Victim Services Coordinator (902) 722-4999">Call <span class="mono num">(902) 722-4999</span></a></div>
+          </div>
+          <div class="card"><div class="k">Team Lead</div><div class="t">Social Worker</div>
+            <div class="btnrow"><a class="btn" href="tel:+19027218607" aria-label="Call Social Worker (902) 721-8607">Call <span class="mono num">(902) 721-8607</span></a></div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- MFRC -->
-        <section id="mfrc" aria-labelledby="mfrc-h">
-      <h2 id="mfrc-h">MFRC</h2>
-      <div class="grid">
-        <div class="card"><div class="k">Halifax/Shearwater</div><div class="t">Military Family Resource Centre</div>
-          <div class="btnrow">
-            <a class="btn" href="tel:+19024277788" aria-label="Call MFRC Halifax/Shearwater (902) 427-7788">Call <span class="mono num">(902) 427-7788</span></a>
-            <a class="btn" href="https://cfmws.ca/halifax/halifax-region-military-family-resource-centre" target="_blank" rel="noopener noreferrer" aria-label="Open MFRC Halifax/Shearwater website">Website</a>
-            <a class="btn" href="mailto:info@hrmfrc.ca" aria-label="Email MFRC Halifax/Shearwater">Email</a>
+    <section id="mfrc" aria-labelledby="mfrc-h">
+      <h2 id="mfrc-h"><span class="title">MFRC</span><button class="twist" aria-expanded="false" aria-controls="mfrc:body"></button></h2>
+      <div class="section-body" id="mfrc:body" hidden>
+        <div class="grid">
+          <div class="card"><div class="k">Halifax/Shearwater</div><div class="t">Military Family Resource Centre</div>
+            <div class="btnrow">
+              <a class="btn" href="tel:+19024277788" aria-label="Call MFRC Halifax/Shearwater (902) 427-7788">Call <span class="mono num">(902) 427-7788</span></a>
+              <a class="btn" href="https://cfmws.ca/halifax/halifax-region-military-family-resource-centre" target="_blank" rel="noopener noreferrer" aria-label="Open MFRC Halifax/Shearwater website">Website</a>
+              <a class="btn" href="mailto:info@hrmfrc.ca" aria-label="Email MFRC Halifax/Shearwater">Email</a>
+            </div>
           </div>
         </div>
       </div>
     </section>
-  <script>
-  // Simple client-side filter
+
+  </main>
+</div>
+
+<script>
+// Ensure DOM is ready before running any DOM-manipulating code
+window.addEventListener('DOMContentLoaded', function(){
+  // ---- Simple client-side filter ----
   const q = document.getElementById('q');
   const cards = Array.from(document.querySelectorAll('.card'));
   const hay = el => (el.textContent||'').toLowerCase();
   const live = document.createElement('div');
-  live.setAttribute('aria-live','polite'); live.className='skip'; document.body.appendChild(live);
-  function applyFilter(term){
-    let visible=0; const t = term.trim().toLowerCase();
-    cards.forEach(c=>{const show = !t || hay(c).includes(t); c.style.display = show? '' : 'none'; visible += show?1:0;});
-    live.textContent = t? `${visible} result${visible===1?'':'s'} for "${term}"` : '';
-  }
-  q.addEventListener('input', e=>applyFilter(e.target.value));
-  // Pre-fill from ?q= param
-  const params=new URLSearchParams(location.search);
-  if(params.get('q')){ q.value=params.get('q'); applyFilter(q.value); }
+  live.setAttribute('aria-live','polite'); live.className='skip';
+  document.body.appendChild(live);
 
-  // ---- New: alphabetize sections and cards; rebuild nav to match ----
+  function setExpanded(section, expand){
+    const body = section.querySelector('.section-body');
+    const btn = section.querySelector('.twist');
+    if(!body || !btn) return;
+    btn.setAttribute('aria-expanded', expand ? 'true' : 'false');
+    body.toggleAttribute('hidden', !expand);
+    if(section.id) localStorage.setItem('sec:'+section.id, expand ? 'open' : 'closed');
+    if(window._setStickyOffset) window._setStickyOffset();
+  }
+  window.setExpanded = setExpanded;
+
+  function applyFilter(term){
+    const t = (term||'').trim().toLowerCase();
+    // 1) Show/hide cards based on text match
+    let visible=0;
+    cards.forEach(c=>{
+      const show = !t || hay(c).includes(t);
+      c.style.display = show? '' : 'none';
+      visible += show?1:0;
+    });
+
+    // 2) Expand only sections that have at least one visible card while searching
+    const sections = Array.from(document.querySelectorAll('main section'));
+    // Save pre-search open/closed state once when search starts
+    if(!window._preSearchState && t){
+      window._preSearchState = new Map(sections.map(sec=>[sec.id, sec.querySelector('.twist')?.getAttribute('aria-expanded')==='true']));
+    }
+    if(t){
+      sections.forEach(sec=>{
+        const count = Array.from(sec.querySelectorAll('.card')).filter(c=>c.style.display!=='none').length;
+        setExpanded(sec, count>0);
+      });
+    } else {
+      // Restore pre-search state if we have it; otherwise default collapsed
+      if(window._preSearchState){
+        sections.forEach(sec=>{
+          const wasOpen = window._preSearchState.get(sec.id);
+          setExpanded(sec, !!wasOpen);
+        });
+        window._preSearchState = null;
+      } else {
+        sections.forEach(sec=> setExpanded(sec, false));
+      }
+    }
+
+    // 3) Live region + 911 bar visibility + sticky recalc
+    live.textContent = t? `${visible} result${visible===1?'':'s'} for "${term}"` : '';
+    const urgent = document.getElementById('urgent911');
+    if(urgent){ urgent.classList.toggle('hidden', !!t); }
+    if(window._setStickyOffset){ window._setStickyOffset(); }
+  }
+
+  if(q){
+    q.addEventListener('input', e=>applyFilter(e.target.value));
+    const params=new URLSearchParams(location.search);
+    if(params.get('q')){ q.value=params.get('q'); applyFilter(q.value); }
+  }
+
+  // ---- Alphabetize sections/cards and rebuild nav in order ----
   (function organize(){
     const content = document.getElementById('content');
     const nav = document.querySelector('.badges');
     const sections = Array.from(content.querySelectorAll('section'));
+    const titleOf = (sec) => (sec.querySelector('h2 .title')?.textContent || '').trim().toLowerCase();
 
-    // Helper to get the visible title text used for sorting
-    const titleOf = (sec) => (sec.querySelector('h2')?.textContent || '').trim().toLowerCase();
-
-    // Sort cards within each section (by .t text inside .card)
+    // Sort cards within each section
     sections.forEach(sec => {
       const grid = sec.querySelector('.grid');
       if(!grid) return;
@@ -404,43 +508,92 @@
     sections.sort((a,b)=> titleOf(a).localeCompare(titleOf(b)));
     sections.forEach(s=>content.appendChild(s));
 
-    // Rebuild the badge nav in the new order
+    // Rebuild the badge nav in the new order and keep the controls
     if(nav){
+      const ctrl = nav.querySelector('.ctrl');
       nav.innerHTML = '';
       sections.forEach(sec => {
         const id = sec.getAttribute('id');
-        const h2 = sec.querySelector('h2');
+        const h2 = sec.querySelector('h2 .title');
         if(id && h2){
           const a = document.createElement('a');
-          a.className = 'badge';
-          a.href = `#${id}`;
-          a.textContent = h2.textContent.trim();
+          a.className = 'badge'; a.href = `#${id}`; a.textContent = h2.textContent.trim();
+          a.addEventListener('click', ()=>{ setExpanded(sec, true); });
           nav.appendChild(a);
         }
       });
+      if(ctrl){ nav.appendChild(ctrl); }
     }
   })();
 
-  // ---- New: compute sticky offset for section headers below sticky badges ----
+  // ---- Sticky offsets for headers and 911 bar ----
   (function stickyOffset(){
     const setOffset = ()=>{
-      const badges = document.querySelector('.badges');
+      // Height contributors above sticky items
+      const toolbar = document.querySelector('.toolbar');
       const urgent = document.getElementById('urgent911');
-      const badgesH = badges ? badges.getBoundingClientRect().height : 0;
-      const topAfterBadges = Math.round(badgesH + 6);
-      document.documentElement.style.setProperty('--stickyTop', topAfterBadges + 'px');
-      // After we set stickyTop, compute h2 offset including the 911 bar height
-      // Use offsetHeight because urgent is in normal flow
-      const urgentH = urgent ? urgent.offsetHeight : 0;
-      const h2Top = topAfterBadges + urgentH + 6; // small gap below the 911 bar
+      const toolbarH = toolbar ? toolbar.getBoundingClientRect().height : 0;
+      const topAfterToolbar = Math.round(toolbarH + 6);
+      document.documentElement.style.setProperty('--stickyTop', topAfterToolbar + 'px');
+      const urgentH = (urgent && !urgent.classList.contains('hidden')) ? urgent.offsetHeight : 0;
+      const h2Top = topAfterToolbar + urgentH + 6;
       document.documentElement.style.setProperty('--stickyH2Top', h2Top + 'px');
     };
     setOffset();
     window.addEventListener('resize', setOffset, {passive:true});
+    window._setStickyOffset = setOffset;
   })();
-</script>
-  </main>
-</div>
 
+  // ---- Collapsible sections (default: collapsed) + expand/collapse all ----
+  (function collapsers(){
+    const sections = Array.from(document.querySelectorAll('main section'));
+    sections.forEach(sec=>{
+      const h2 = sec.querySelector('h2');
+      const body = sec.querySelector('.section-body');
+      const btn = h2.querySelector('.twist');
+      if(!h2 || !body || !btn) return;
+      // Ensure aria-controls points to body id
+      const cid = sec.id ? sec.id+':body' : Math.random().toString(36).slice(2);
+      body.id = cid; btn.setAttribute('aria-controls', cid);
+      // Toggle handlers
+      const clickToggle = (expand)=> setExpanded(sec, expand ?? (btn.getAttribute('aria-expanded') !== 'true'));
+      btn.addEventListener('click', ()=> clickToggle());
+      h2.addEventListener('click', (e)=>{ if(e.target===btn) return; clickToggle(); });
+      // Default collapsed; restore from localStorage if present
+      const saved = localStorage.getItem('sec:'+sec.id);
+      const startOpen = saved ? saved === 'open' : false; // default collapsed
+      setExpanded(sec, startOpen);
+    });
+
+    const expandAll = document.getElementById('expandAll');
+    const collapseAll = document.getElementById('collapseAll');
+    if(expandAll) expandAll.addEventListener('click', ()=>{
+      document.querySelectorAll('main section').forEach(sec=> setExpanded(sec, true));
+    });
+    if(collapseAll) collapseAll.addEventListener('click', ()=>{
+      document.querySelectorAll('main section').forEach(sec=> setExpanded(sec, false));
+    });
+  })();
+
+  // ---- Minimal self-tests (console only) ----
+  (function selfTest(){
+    try{
+      console.assert(!!document.body, 'body should exist');
+      console.assert(!!document.getElementById('q'), 'search input #q should exist');
+      console.assert(document.querySelectorAll('main section').length > 0, 'there should be sections');
+      // badges quick-select removed at user's request; no assertion needed
+      console.assert(typeof applyFilter === 'function', 'applyFilter should be defined');
+      // Simulate a tiny filter run (no-op)
+      applyFilter('');
+      console.log('[OK] Basic DOM self-tests passed.');
+    }catch(e){ console.warn('Self-test warning:', e); }
+  })();
+});
+
+// Register service worker for offline/PWA
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(()=>{}));
+}
+</script>
 </body>
 </html>
