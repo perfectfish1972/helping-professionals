@@ -75,6 +75,20 @@
   .btn[href^="http"]::before{content:"🌐"}
 
   @media (prefers-reduced-motion: reduce){*{transition:none !important}}
+  /* Sticky section headers (stay below sticky badges) */
+  :root{ --stickyTop: 56px; }
+  section > h2{ position: sticky; top: var(--stickyH2Top, var(--stickyTop)); z-index: 6; 
+    background: linear-gradient(135deg,var(--bg1),var(--bg2));
+    padding: 6px 8px; margin: 0 0 10px; border-bottom: 1px solid var(--border); backdrop-filter: saturate(1.1);
+  }
+  /* Sticky 911 bar below badges */
+  #urgent911{ position: sticky; top: var(--stickyTop); z-index: 15; }
+  #urgent911 .bar{ display:flex; align-items:center; justify-content:space-between; gap:12px;
+    background: linear-gradient(90deg,#fecaca,#fde68a); border:1px solid #fca5a5; border-radius:14px; padding:8px 12px; box-shadow:0 6px 14px var(--shadow);
+  }
+  #urgent911 .bar strong{ font-weight:800; letter-spacing:.02em }
+  #urgent911 .btn911{ display:inline-flex; align-items:center; gap:8px; min-height:40px; padding:8px 12px; border-radius:10px; border:1px solid #ef4444; background:#fee2e2; font-weight:700 }
+  #urgent911 .btn911::before{ content:"🚨"; }
 </style>
 <link rel="manifest" href="manifest.webmanifest">
 <script>
@@ -103,6 +117,14 @@
       <a class="badge" href="#fvct">CAF Family Violence Crisis Team</a>
       <a class="badge" href="#mfrc">MFRC</a>
     </nav>
+
+    <!-- Sticky Emergency 911 bar -->
+    <div id="urgent911" role="region" aria-label="Emergency call quick access">
+      <div class="bar" aria-live="polite">
+        <span><strong>Emergency:</strong> Police / Fire / Ambulance</span>
+        <a class="btn911" href="tel:911" aria-label="Call 911 now">Call 911</a>
+      </div>
+    </div>
 
     <!-- CFB Halifax & Region -->
         <section id="cjb" aria-labelledby="cjb-h">
@@ -355,6 +377,67 @@
   // Pre-fill from ?q= param
   const params=new URLSearchParams(location.search);
   if(params.get('q')){ q.value=params.get('q'); applyFilter(q.value); }
+
+  // ---- New: alphabetize sections and cards; rebuild nav to match ----
+  (function organize(){
+    const content = document.getElementById('content');
+    const nav = document.querySelector('.badges');
+    const sections = Array.from(content.querySelectorAll('section'));
+
+    // Helper to get the visible title text used for sorting
+    const titleOf = (sec) => (sec.querySelector('h2')?.textContent || '').trim().toLowerCase();
+
+    // Sort cards within each section (by .t text inside .card)
+    sections.forEach(sec => {
+      const grid = sec.querySelector('.grid');
+      if(!grid) return;
+      const sectionCards = Array.from(grid.querySelectorAll('.card'));
+      sectionCards.sort((a,b)=>{
+        const ta=(a.querySelector('.t')?.textContent||a.textContent||'').trim().toLowerCase();
+        const tb=(b.querySelector('.t')?.textContent||b.textContent||'').trim().toLowerCase();
+        return ta.localeCompare(tb);
+      });
+      sectionCards.forEach(c=>grid.appendChild(c));
+    });
+
+    // Sort sections by their h2 text
+    sections.sort((a,b)=> titleOf(a).localeCompare(titleOf(b)));
+    sections.forEach(s=>content.appendChild(s));
+
+    // Rebuild the badge nav in the new order
+    if(nav){
+      nav.innerHTML = '';
+      sections.forEach(sec => {
+        const id = sec.getAttribute('id');
+        const h2 = sec.querySelector('h2');
+        if(id && h2){
+          const a = document.createElement('a');
+          a.className = 'badge';
+          a.href = `#${id}`;
+          a.textContent = h2.textContent.trim();
+          nav.appendChild(a);
+        }
+      });
+    }
+  })();
+
+  // ---- New: compute sticky offset for section headers below sticky badges ----
+  (function stickyOffset(){
+    const setOffset = ()=>{
+      const badges = document.querySelector('.badges');
+      const urgent = document.getElementById('urgent911');
+      const badgesH = badges ? badges.getBoundingClientRect().height : 0;
+      const topAfterBadges = Math.round(badgesH + 6);
+      document.documentElement.style.setProperty('--stickyTop', topAfterBadges + 'px');
+      // After we set stickyTop, compute h2 offset including the 911 bar height
+      // Use offsetHeight because urgent is in normal flow
+      const urgentH = urgent ? urgent.offsetHeight : 0;
+      const h2Top = topAfterBadges + urgentH + 6; // small gap below the 911 bar
+      document.documentElement.style.setProperty('--stickyH2Top', h2Top + 'px');
+    };
+    setOffset();
+    window.addEventListener('resize', setOffset, {passive:true});
+  })();
 </script>
   </main>
 </div>
