@@ -1,9 +1,11 @@
+```html
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Helping Professionals — Key Contact Information (July 2024)</title>
+
   <style>
     :root{
       --yellow:#f4c400;
@@ -29,7 +31,7 @@
         var(--bg);
     }
 
-    .wrap{max-width:1100px;margin:0 auto;padding:18px 14px 44px}
+    .wrap{max-width:1100px;margin:0 auto;padding:16px 12px 44px}
     header{
       background: linear-gradient(180deg, #ffffff 0%, #fffef6 100%);
       border:1px solid var(--line);
@@ -86,26 +88,19 @@
     details.card > summary{
       list-style:none;
       cursor:pointer;
-      padding:14px 14px;
+      padding:16px 14px;
       background: linear-gradient(180deg, var(--yellow) 0%, #ffd84d 100%);
       border-bottom: 1px solid var(--yellow-dark);
       font-weight:900;
       text-transform:uppercase;
       letter-spacing:.06em;
-      font-size:13px;
+      font-size:14px;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:12px;
       -webkit-tap-highlight-color: transparent;
     }
-    @media (max-width: 560px){
-      details.card > summary{
-        padding:16px 14px;
-        font-size:14px;
-      }
-    }
-
     details.card > summary::-webkit-details-marker{display:none}
     .chev{
       width:12px;height:12px;flex:0 0 auto;
@@ -119,7 +114,6 @@
 
     .content{padding:12px 14px 14px}
     .rows{display:flex;flex-direction:column;gap:12px}
-
     .row{
       padding-bottom:12px;
       border-bottom:1px dashed #e5e7eb;
@@ -127,65 +121,16 @@
     .row:last-child{border-bottom:none;padding-bottom:0}
 
     .label{
-      font-size:14px;
+      font-size:15px;
       line-height:1.25rem;
-      font-weight:700;
+      font-weight:900;
       color:#0f172a;
     }
     .note{
       font-size:13px;
       color:var(--muted);
       line-height:1.15rem;
-      margin-top:4px;
-    }
-
-    /* Big, tappable contact buttons */
-    .actions{
-      margin-top:10px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-    }
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:12px 12px;
-      border-radius: 14px;
-      border:1px solid #e5e7eb;
-      background: #f9fafb;
-      text-decoration:none;
-      color:#111827;
-      box-shadow: 0 2px 10px rgba(17,24,39,.06);
-      min-height:44px; /* iOS recommended tap target */
-      -webkit-tap-highlight-color: transparent;
-    }
-    .btn:active{transform: translateY(1px)}
-    .btn .num{
-      font-family:var(--mono);
-      font-size:16px;
-      font-weight:900;
-      letter-spacing:.01em;
-    }
-    .btn .meta{
-      font-size:12px;
-      color:var(--muted);
-      font-weight:700;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-    }
-    .btn .stack{
-      display:flex;
-      flex-direction:column;
-      line-height:1.05;
-    }
-
-    @media (max-width: 560px){
-      .label{font-size:15px}
-      .btn{width:100%; justify-content:flex-start; padding:14px 14px}
-      .btn .num{font-size:18px}
-      .btn .meta{font-size:12px}
-      .actions{gap:10px}
+      margin-top:6px;
     }
 
     .badge{
@@ -198,16 +143,74 @@
       margin-left:8px;
       color:#374151;
       letter-spacing:.02em;
-      font-weight:800;
+      font-weight:900;
+      vertical-align:middle;
+      white-space:nowrap;
     }
 
-    /* Website card */
+    /* Big, tappable action buttons */
+    .actions{
+      margin-top:10px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:14px 14px;
+      border-radius: 14px;
+      border:1px solid #e5e7eb;
+      background:#f9fafb;
+      text-decoration:none;
+      color:#111827;
+      box-shadow: 0 2px 12px rgba(17,24,39,.07);
+      min-height:44px; /* tap target */
+      -webkit-tap-highlight-color: transparent;
+      user-select:none;
+    }
+    a.btn{cursor:pointer}
+    button.btn{
+      cursor:pointer;
+      font: inherit;
+    }
+    .btn:active{transform: translateY(1px)}
+    .btn .stack{
+      display:flex;
+      flex-direction:column;
+      line-height:1.05;
+    }
+    .btn .num{
+      font-family:var(--mono);
+      font-size:18px;
+      font-weight:900;
+      letter-spacing:.01em;
+    }
+    .btn .meta{
+      font-size:12px;
+      color:var(--muted);
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+
+    /* On phones: buttons full-width and larger */
+    @media (max-width: 560px){
+      .label{font-size:16px}
+      .btn{width:100%; justify-content:flex-start; padding:16px 14px}
+      .btn .num{font-size:20px}
+      .btn .meta{font-size:12px}
+      .actions{gap:10px}
+    }
+
+    /* Website CTA */
     .cta{
       background: linear-gradient(180deg, #fff4b8 0%, #ffe066 100%);
       border:1px solid #f0c52b;
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding:14px;
+      padding:16px 14px;
       text-align:center;
     }
     .cta p{margin:0 0 8px; font-weight:900}
@@ -218,6 +221,7 @@
       border-bottom:2px solid rgba(17,24,39,.35);
       word-break:break-word;
     }
+
     .footer{
       margin-top:14px;
       text-align:center;
@@ -242,50 +246,67 @@
         <summary>CFB HALIFAX AND REGION <span class="chev" aria-hidden="true"></span></summary>
         <div class="content">
           <div class="rows">
+
             <div class="row">
               <div class="label">Military Police, Fire, and Ambulance</div>
               <div class="actions">
-                <a class="btn" href="tel:911">
-                  <span class="stack"><span class="num">911</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:911" aria-label="Call 911">
+                  <span class="stack"><span class="num">911</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="911" aria-label="Copy 911">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
 
             <div class="row">
               <div class="label">HealthLink Nova Scotia</div>
               <div class="actions">
-                <a class="btn" href="tel:811">
-                  <span class="stack"><span class="num">811</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:811" aria-label="Call 811">
+                  <span class="stack"><span class="num">811</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="811" aria-label="Copy 811">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
 
             <div class="row">
               <div class="label">Community, Health &amp; Social Services Nova Scotia</div>
               <div class="actions">
-                <a class="btn" href="tel:211">
-                  <span class="stack"><span class="num">211</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:211" aria-label="Call 211">
+                  <span class="stack"><span class="num">211</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="211" aria-label="Copy 211">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
 
             <div class="row">
               <div class="label">Suicide Crisis Helpline</div>
               <div class="actions">
-                <a class="btn" href="tel:988">
-                  <span class="stack"><span class="num">988</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:988" aria-label="Call 988">
+                  <span class="stack"><span class="num">988</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="988" aria-label="Copy 988">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
 
             <div class="row">
               <div class="label">Base Operator</div>
               <div class="actions">
-                <a class="btn" href="tel:+19024270550">
-                  <span class="stack"><span class="num">902-427-0550</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:+19024270550" aria-label="Call 902-427-0550">
+                  <span class="stack"><span class="num">902-427-0550</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="+1 902-427-0550" aria-label="Copy 902-427-0550">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
+
           </div>
         </div>
       </details>
@@ -295,42 +316,59 @@
         <summary>EMERGENCY NUMBERS <span class="chev" aria-hidden="true"></span></summary>
         <div class="content">
           <div class="rows">
+
             <div class="row">
               <div class="label">Duty Chaplain</div>
               <div class="actions">
-                <a class="btn" href="tel:+19024277788">
-                  <span class="stack"><span class="num">902-427-7788</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:+19024277788" aria-label="Call 902-427-7788">
+                  <span class="stack"><span class="num">902-427-7788</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="+1 902-427-7788" aria-label="Copy 902-427-7788">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
 
             <div class="row">
               <div class="label">MFRC Emergency Childcare Services <span class="badge">24 hrs</span></div>
               <div class="actions">
-                <a class="btn" href="tel:+19024277788">
-                  <span class="stack"><span class="num">902-427-7788</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:+19024277788" aria-label="Call 902-427-7788">
+                  <span class="stack"><span class="num">902-427-7788</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="+1 902-427-7788" aria-label="Copy 902-427-7788">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
 
             <div class="row">
               <div class="label">Canada Suicide Prevention Service <span class="badge">24/7</span></div>
               <div class="actions">
-                <a class="btn" href="tel:+18334564566">
-                  <span class="stack"><span class="num">1-833-456-4566</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:+18334564566" aria-label="Call 1-833-456-4566">
+                  <span class="stack"><span class="num">1-833-456-4566</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="1-833-456-4566" aria-label="Copy 1-833-456-4566">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
 
             <div class="row">
               <div class="label">Provincial Mental Health and Addictions Crisis Line <span class="badge">24/7</span></div>
               <div class="actions">
-                <a class="btn" href="tel:+19024298167">
-                  <span class="stack"><span class="num">902-429-8167</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:+19024298167" aria-label="Call 902-429-8167">
+                  <span class="stack"><span class="num">902-429-8167</span><span class="meta">Tap to Call</span></span>
                 </a>
-                <a class="btn" href="tel:+18884298167">
-                  <span class="stack"><span class="num">1-888-429-8167</span><span class="meta">Call</span></span>
+                <button class="btn copy-btn" type="button" data-copy="+1 902-429-8167" aria-label="Copy 902-429-8167">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
+
+                <a class="btn" href="tel:+18884298167" aria-label="Call 1-888-429-8167">
+                  <span class="stack"><span class="num">1-888-429-8167</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="1-888-429-8167" aria-label="Copy 1-888-429-8167">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
 
@@ -338,44 +376,65 @@
               <div class="label">Bryony House <span class="badge">24 hrs</span></div>
               <div class="note">(shelter for abused women and their children)</div>
               <div class="actions">
-                <a class="btn" href="tel:+19024227650">
-                  <span class="stack"><span class="num">902-422-7650</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:+19024227650" aria-label="Call 902-422-7650">
+                  <span class="stack"><span class="num">902-422-7650</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="+1 902-422-7650" aria-label="Copy 902-422-7650">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
 
             <div class="row">
               <div class="label">Avalon Sexual Assault Nurse Examiners</div>
               <div class="actions">
-                <a class="btn" href="tel:+19024250122">
-                  <span class="stack"><span class="num">902-425-0122</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:+19024250122" aria-label="Call 902-425-0122">
+                  <span class="stack"><span class="num">902-425-0122</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="+1 902-425-0122" aria-label="Copy 902-425-0122">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
 
             <div class="row">
               <div class="label">Child Protection Services – after hrs</div>
               <div class="actions">
-                <a class="btn" href="tel:+18889194236">
-                  <span class="stack"><span class="num">1-888-919-4236</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:+18889194236" aria-label="Call 1-888-919-4236">
+                  <span class="stack"><span class="num">1-888-919-4236</span><span class="meta">Tap to Call</span></span>
                 </a>
-                <a class="btn" href="tel:+18669222434">
-                  <span class="stack"><span class="num">1-866-922-2434</span><span class="meta">Call</span></span>
+                <button class="btn copy-btn" type="button" data-copy="1-888-919-4236" aria-label="Copy 1-888-919-4236">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
+
+                <a class="btn" href="tel:+18669222434" aria-label="Call 1-866-922-2434">
+                  <span class="stack"><span class="num">1-866-922-2434</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="1-866-922-2434" aria-label="Copy 1-866-922-2434">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
 
             <div class="row">
               <div class="label">Poison Control Line</div>
               <div class="actions">
-                <a class="btn" href="tel:+19024708161">
-                  <span class="stack"><span class="num">902-470-8161</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:+19024708161" aria-label="Call 902-470-8161">
+                  <span class="stack"><span class="num">902-470-8161</span><span class="meta">Tap to Call</span></span>
                 </a>
-                <a class="btn" href="tel:+18005658161">
-                  <span class="stack"><span class="num">1-800-565-8161</span><span class="meta">Call</span></span>
+                <button class="btn copy-btn" type="button" data-copy="+1 902-470-8161" aria-label="Copy 902-470-8161">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
+
+                <a class="btn" href="tel:+18005658161" aria-label="Call 1-800-565-8161">
+                  <span class="stack"><span class="num">1-800-565-8161</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="1-800-565-8161" aria-label="Copy 1-800-565-8161">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
+
           </div>
         </div>
       </details>
@@ -385,21 +444,31 @@
         <summary>CRISIS TEXT LINES <span class="chev" aria-hidden="true"></span></summary>
         <div class="content">
           <div class="rows">
+
             <div class="row">
               <div class="label">Military Family Kids <span class="badge">24/7</span></div>
               <div class="actions">
-                <a class="btn" href="sms:686868&body=CAFKIDS">
+                <!-- iOS-friendly sms: format -->
+                <a class="btn" href="sms:686868" aria-label="Text CAFKIDS to 686868">
                   <span class="stack"><span class="num">Text CAFKIDS</span><span class="meta">To 686868</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="CAFKIDS (to 686868)" aria-label="Copy text CAFKIDS to 686868">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Text + Number</span></span>
+                </button>
+                <div class="note">Message: CAFKIDS</div>
               </div>
             </div>
 
             <div class="row">
               <div class="label">Crisis Text Line for ALL <span class="badge">24/7</span></div>
               <div class="actions">
-                <a class="btn" href="sms:686868&body=HOME">
+                <a class="btn" href="sms:686868" aria-label="Text HOME to 686868">
                   <span class="stack"><span class="num">Text HOME</span><span class="meta">To 686868</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="HOME (to 686868)" aria-label="Copy text HOME to 686868">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Text + Number</span></span>
+                </button>
+                <div class="note">Message: HOME</div>
               </div>
             </div>
 
@@ -407,11 +476,15 @@
               <div class="label">Canada Suicide Prevention Service Text Line</div>
               <div class="note">(5pm – 1am AST)</div>
               <div class="actions">
-                <a class="btn" href="sms:45645">
-                  <span class="stack"><span class="num">Text 45645</span><span class="meta">Open SMS</span></span>
+                <a class="btn" href="sms:45645" aria-label="Text 45645">
+                  <span class="stack"><span class="num">Text 45645</span><span class="meta">Open Messages</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="45645" aria-label="Copy 45645">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
+
           </div>
         </div>
       </details>
@@ -421,13 +494,91 @@
         <summary>CAF HEALTH SERVICES CENTRE (ATLANTIC) <span class="chev" aria-hidden="true"></span></summary>
         <div class="content">
           <div class="rows">
-            <div class="row"><div class="label">CDU1</div><div class="actions"><a class="btn" href="tel:+19027218890"><span class="stack"><span class="num">902-721-8890</span><span class="meta">Call</span></span></a></div></div>
-            <div class="row"><div class="label">CDU2</div><div class="actions"><a class="btn" href="tel:+19027218868"><span class="stack"><span class="num">902-721-8868</span><span class="meta">Call</span></span></a></div></div>
-            <div class="row"><div class="label">CDU3</div><div class="actions"><a class="btn" href="tel:+19027218764"><span class="stack"><span class="num">902-721-8764</span><span class="meta">Call</span></span></a></div></div>
-            <div class="row"><div class="label">CDU4</div><div class="actions"><a class="btn" href="tel:+19027201558"><span class="stack"><span class="num">902-720-1558</span><span class="meta">Call</span></span></a></div></div>
-            <div class="row"><div class="label">CDU5</div><div class="actions"><a class="btn" href="tel:+19027210815"><span class="stack"><span class="num">902-721-0815</span><span class="meta">Call</span></span></a></div></div>
-            <div class="row"><div class="label">Psychosocial Services</div><div class="actions"><a class="btn" href="tel:+19027218607"><span class="stack"><span class="num">902-721-8607</span><span class="meta">Call</span></span></a></div></div>
-            <div class="row"><div class="label">Addiction Services</div><div class="actions"><a class="btn" href="tel:+19027218600"><span class="stack"><span class="num">902-721-8600</span><span class="meta">Call</span></span></a></div></div>
+
+            <div class="row">
+              <div class="label">CDU1</div>
+              <div class="actions">
+                <a class="btn" href="tel:+19027218890" aria-label="Call 902-721-8890">
+                  <span class="stack"><span class="num">902-721-8890</span><span class="meta">Tap to Call</span></span>
+                </a>
+                <button class="btn copy-btn" type="button" data-copy="+1 902-721-8890" aria-label="Copy 902-721-8890">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="label">CDU2</div>
+              <div class="actions">
+                <a class="btn" href="tel:+19027218868" aria-label="Call 902-721-8868">
+                  <span class="stack"><span class="num">902-721-8868</span><span class="meta">Tap to Call</span></span>
+                </a>
+                <button class="btn copy-btn" type="button" data-copy="+1 902-721-8868" aria-label="Copy 902-721-8868">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="label">CDU3</div>
+              <div class="actions">
+                <a class="btn" href="tel:+19027218764" aria-label="Call 902-721-8764">
+                  <span class="stack"><span class="num">902-721-8764</span><span class="meta">Tap to Call</span></span>
+                </a>
+                <button class="btn copy-btn" type="button" data-copy="+1 902-721-8764" aria-label="Copy 902-721-8764">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="label">CDU4</div>
+              <div class="actions">
+                <a class="btn" href="tel:+19027201558" aria-label="Call 902-720-1558">
+                  <span class="stack"><span class="num">902-720-1558</span><span class="meta">Tap to Call</span></span>
+                </a>
+                <button class="btn copy-btn" type="button" data-copy="+1 902-720-1558" aria-label="Copy 902-720-1558">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="label">CDU5</div>
+              <div class="actions">
+                <a class="btn" href="tel:+19027210815" aria-label="Call 902-721-0815">
+                  <span class="stack"><span class="num">902-721-0815</span><span class="meta">Tap to Call</span></span>
+                </a>
+                <button class="btn copy-btn" type="button" data-copy="+1 902-721-0815" aria-label="Copy 902-721-0815">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="label">Psychosocial Services</div>
+              <div class="actions">
+                <a class="btn" href="tel:+19027218607" aria-label="Call 902-721-8607">
+                  <span class="stack"><span class="num">902-721-8607</span><span class="meta">Tap to Call</span></span>
+                </a>
+                <button class="btn copy-btn" type="button" data-copy="+1 902-721-8607" aria-label="Copy 902-721-8607">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="label">Addiction Services</div>
+              <div class="actions">
+                <a class="btn" href="tel:+19027218600" aria-label="Call 902-721-8600">
+                  <span class="stack"><span class="num">902-721-8600</span><span class="meta">Tap to Call</span></span>
+                </a>
+                <button class="btn copy-btn" type="button" data-copy="+1 902-721-8600" aria-label="Copy 902-721-8600">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
+              </div>
+            </div>
+
           </div>
         </div>
       </details>
@@ -437,54 +588,75 @@
         <summary>CAF SERVICES <span class="chev" aria-hidden="true"></span></summary>
         <div class="content">
           <div class="rows">
+
             <div class="row">
               <div class="label">Member Assistance Program</div>
               <div class="note">(24 hrs, free and confidential counselling service for CAF Members and families)</div>
               <div class="actions">
-                <a class="btn" href="tel:+18002687708">
-                  <span class="stack"><span class="num">1-800-268-7708</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:+18002687708" aria-label="Call 1-800-268-7708">
+                  <span class="stack"><span class="num">1-800-268-7708</span><span class="meta">Tap to Call</span></span>
                 </a>
-                <a class="btn" href="tel:+18005675803">
-                  <span class="stack"><span class="num">TTY: 1-800-567-5803</span><span class="meta">Call</span></span>
+                <button class="btn copy-btn" type="button" data-copy="1-800-268-7708" aria-label="Copy 1-800-268-7708">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
+
+                <a class="btn" href="tel:+18005675803" aria-label="Call TTY 1-800-567-5803">
+                  <span class="stack"><span class="num">TTY: 1-800-567-5803</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="TTY: 1-800-567-5803" aria-label="Copy TTY 1-800-567-5803">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
 
             <div class="row">
               <div class="label">Family Information Line</div>
               <div class="actions">
-                <a class="btn" href="tel:+18008664546">
-                  <span class="stack"><span class="num">1-800-866-4546</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:+18008664546" aria-label="Call 1-800-866-4546">
+                  <span class="stack"><span class="num">1-800-866-4546</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="1-800-866-4546" aria-label="Copy 1-800-866-4546">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
 
             <div class="row">
               <div class="label">Sexual Misconduct Support and Resource Centre (SMSRC)</div>
               <div class="actions">
-                <a class="btn" href="tel:+18447501648">
-                  <span class="stack"><span class="num">1-844-750-1648</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:+18447501648" aria-label="Call 1-844-750-1648">
+                  <span class="stack"><span class="num">1-844-750-1648</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="1-844-750-1648" aria-label="Copy 1-844-750-1648">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
 
             <div class="row">
               <div class="label">Canadian Armed Forces Transition Unit</div>
               <div class="actions">
-                <a class="btn" href="tel:+18008836094">
-                  <span class="stack"><span class="num">1-800-883-6094</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:+18008836094" aria-label="Call 1-800-883-6094">
+                  <span class="stack"><span class="num">1-800-883-6094</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="1-800-883-6094" aria-label="Copy 1-800-883-6094">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
 
             <div class="row">
               <div class="label">Canadian Armed Forces Transition Centre</div>
               <div class="actions">
-                <a class="btn" href="tel:+19027221908">
-                  <span class="stack"><span class="num">902-722-1908</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:+19027221908" aria-label="Call 902-722-1908">
+                  <span class="stack"><span class="num">902-722-1908</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="+1 902-722-1908" aria-label="Copy 902-722-1908">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
+
           </div>
         </div>
       </details>
@@ -494,83 +666,117 @@
         <summary>SUPPORT SERVICES <span class="chev" aria-hidden="true"></span></summary>
         <div class="content">
           <div class="rows">
+
             <div class="row">
               <div class="label">Operational Stress Injury Social Support (Peer and Family Support)</div>
               <div class="actions">
-                <a class="btn" href="tel:+18008836094">
-                  <span class="stack"><span class="num">1-800-883-6094</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:+18008836094" aria-label="Call 1-800-883-6094">
+                  <span class="stack"><span class="num">1-800-883-6094</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="1-800-883-6094" aria-label="Copy 1-800-883-6094">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
 
             <div class="row">
               <div class="label">Veterans Affairs Canada</div>
               <div class="actions">
-                <a class="btn" href="tel:+18665222122">
-                  <span class="stack"><span class="num">1-866-522-2122</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:+18665222122" aria-label="Call 1-866-522-2122">
+                  <span class="stack"><span class="num">1-866-522-2122</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="1-866-522-2122" aria-label="Copy 1-866-522-2122">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
 
             <div class="row">
               <div class="label">SISIP Financial Services</div>
               <div class="actions">
-                <a class="btn" href="tel:+19024256926">
-                  <span class="stack"><span class="num">902-425-6926</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:+19024256926" aria-label="Call 902-425-6926">
+                  <span class="stack"><span class="num">902-425-6926</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="+1 902-425-6926" aria-label="Copy 902-425-6926">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
 
             <div class="row">
               <div class="label">Conflict &amp; Complaint Management Services</div>
               <div class="actions">
-                <a class="btn" href="tel:+19027217533">
-                  <span class="stack"><span class="num">902-721-7533</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:+19027217533" aria-label="Call 902-721-7533">
+                  <span class="stack"><span class="num">902-721-7533</span><span class="meta">Tap to Call</span></span>
                 </a>
-                <a class="btn" href="tel:+18333283351">
-                  <span class="stack"><span class="num">1-833-328-3351</span><span class="meta">Call</span></span>
+                <button class="btn copy-btn" type="button" data-copy="+1 902-721-7533" aria-label="Copy 902-721-7533">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
+
+                <a class="btn" href="tel:+18333283351" aria-label="Call 1-833-328-3351">
+                  <span class="stack"><span class="num">1-833-328-3351</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="1-833-328-3351" aria-label="Copy 1-833-328-3351">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
 
             <div class="row">
               <div class="label">Base Chaplain</div>
               <div class="actions">
-                <a class="btn" href="tel:+19027218660">
-                  <span class="stack"><span class="num">902-721-8660</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:+19027218660" aria-label="Call 902-721-8660">
+                  <span class="stack"><span class="num">902-721-8660</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="+1 902-721-8660" aria-label="Copy 902-721-8660">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
+
           </div>
         </div>
       </details>
 
-      <!-- CIVILIAN EAP -->
+      <!-- CIVILIAN EMPLOYEE ASSISTANCE PROGRAMS -->
       <details class="card">
         <summary>CIVILIAN EMPLOYEE ASSISTANCE PROGRAMS <span class="chev" aria-hidden="true"></span></summary>
         <div class="content">
           <div class="rows">
+
             <div class="row">
               <div class="label">Employee Assistance Services – Homewood Health</div>
               <div class="note">(24 hrs, free, and confidential counselling services)</div>
               <div class="actions">
-                <a class="btn" href="tel:+18006631142">
-                  <span class="stack"><span class="num">1-800-663-1142</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:+18006631142" aria-label="Call 1-800-663-1142">
+                  <span class="stack"><span class="num">1-800-663-1142</span><span class="meta">Tap to Call</span></span>
                 </a>
-                <a class="btn" href="tel:+18883841152">
-                  <span class="stack"><span class="num">1-888-384-1152</span><span class="meta">Hearing impairments</span></span>
+                <button class="btn copy-btn" type="button" data-copy="1-800-663-1142" aria-label="Copy 1-800-663-1142">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
+
+                <a class="btn" href="tel:+18883841152" aria-label="Call 1-888-384-1152">
+                  <span class="stack"><span class="num">1-888-384-1152</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="1-888-384-1152 (hearing impairments)" aria-label="Copy 1-888-384-1152">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
+                <div class="note">1-888-384-1152 (hearing impairments)</div>
               </div>
             </div>
 
             <div class="row">
               <div class="label">NPF Employee &amp; Family Assistance Program</div>
               <div class="actions">
-                <a class="btn" href="tel:+18003874765">
-                  <span class="stack"><span class="num">1-800-387-4765</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:+18003874765" aria-label="Call 1-800-387-4765">
+                  <span class="stack"><span class="num">1-800-387-4765</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="1-800-387-4765" aria-label="Copy 1-800-387-4765">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
+
           </div>
         </div>
       </details>
@@ -580,32 +786,43 @@
         <summary>CAF FAMILY VIOLENCE CRISIS TEAM <span class="chev" aria-hidden="true"></span></summary>
         <div class="content">
           <div class="rows">
+
             <div class="row">
               <div class="label">Team Lead (Social Worker)</div>
               <div class="actions">
-                <a class="btn" href="tel:+19027218607">
-                  <span class="stack"><span class="num">902-721-8607</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:+19027218607" aria-label="Call 902-721-8607">
+                  <span class="stack"><span class="num">902-721-8607</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="+1 902-721-8607" aria-label="Copy 902-721-8607">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
 
             <div class="row">
               <div class="label">MFRC Social Worker</div>
               <div class="actions">
-                <a class="btn" href="tel:+19024277788">
-                  <span class="stack"><span class="num">902-427-7788</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:+19024277788" aria-label="Call 902-427-7788">
+                  <span class="stack"><span class="num">902-427-7788</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="+1 902-427-7788" aria-label="Copy 902-427-7788">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
 
             <div class="row">
               <div class="label">Military Police Victim Services Coordinator</div>
               <div class="actions">
-                <a class="btn" href="tel:+19027224999">
-                  <span class="stack"><span class="num">902-722-4999</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:+19027224999" aria-label="Call 902-722-4999">
+                  <span class="stack"><span class="num">902-722-4999</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="+1 902-722-4999" aria-label="Copy 902-722-4999">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
+
           </div>
         </div>
       </details>
@@ -615,14 +832,19 @@
         <summary>MILITARY FAMILY RESOURCE CENTRE (MFRC) <span class="chev" aria-hidden="true"></span></summary>
         <div class="content">
           <div class="rows">
+
             <div class="row">
               <div class="label">Halifax/Shearwater</div>
               <div class="actions">
-                <a class="btn" href="tel:+19024277788">
-                  <span class="stack"><span class="num">902-427-7788</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:+19024277788" aria-label="Call 902-427-7788">
+                  <span class="stack"><span class="num">902-427-7788</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="+1 902-427-7788" aria-label="Copy 902-427-7788">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
+
           </div>
         </div>
       </details>
@@ -632,30 +854,40 @@
         <summary>MENTAL HEALTH EDUCATION <span class="chev" aria-hidden="true"></span></summary>
         <div class="content">
           <div class="rows">
+
             <div class="row">
               <div class="label">Health Promotion Services (PSP)</div>
               <div class="actions">
-                <a class="btn" href="tel:+19027224956">
-                  <span class="stack"><span class="num">902-722-4956</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:+19027224956" aria-label="Call 902-722-4956">
+                  <span class="stack"><span class="num">902-722-4956</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="+1 902-722-4956" aria-label="Copy 902-722-4956">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
 
             <div class="row">
               <div class="label">Road to Mental Readiness</div>
               <div class="actions">
-                <a class="btn" href="tel:+19028026556">
-                  <span class="stack"><span class="num">902-802-6556</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:+19028026556" aria-label="Call 902-802-6556">
+                  <span class="stack"><span class="num">902-802-6556</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="+1 902-802-6556" aria-label="Copy 902-802-6556">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
 
             <div class="row">
               <div class="label">Learning &amp; Career Centre</div>
               <div class="actions">
-                <a class="btn" href="tel:+19027224304">
-                  <span class="stack"><span class="num">902-722-4304</span><span class="meta">Call</span></span>
+                <a class="btn" href="tel:+19027224304" aria-label="Call 902-722-4304">
+                  <span class="stack"><span class="num">902-722-4304</span><span class="meta">Tap to Call</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="+1 902-722-4304" aria-label="Copy 902-722-4304">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Number</span></span>
+                </button>
               </div>
             </div>
 
@@ -663,11 +895,16 @@
               <div class="label">LifeSpeak</div>
               <div class="note">caf.lifespeak.com</div>
               <div class="actions">
-                <a class="btn" href="https://caf.lifespeak.com" target="_blank" rel="noopener">
-                  <span class="stack"><span class="num">Access ID: canada</span><span class="meta">Open site</span></span>
+                <a class="btn" href="https://caf.lifespeak.com" target="_blank" rel="noopener" aria-label="Open LifeSpeak">
+                  <span class="stack"><span class="num">Open LifeSpeak</span><span class="meta">Website</span></span>
                 </a>
+                <button class="btn copy-btn" type="button" data-copy="Access ID: canada" aria-label="Copy LifeSpeak Access ID canada">
+                  <span class="stack"><span class="num">Copy</span><span class="meta">Access ID</span></span>
+                </button>
               </div>
+              <div class="note">Access ID: <strong>canada</strong></div>
             </div>
+
           </div>
         </div>
       </details>
@@ -682,8 +919,67 @@
     </section>
 
     <div class="footer">
-      Built from the provided “Helping Professionals — Key Contact Information — July 2024” one-pager.
+      Key contacts — interactive, mobile-first layout.
     </div>
   </div>
+
+  <script>
+    // Copy support (works well on iPhone/Android; requires user tap)
+    function showToast(msg){
+      let t = document.getElementById('toast');
+      if(!t){
+        t = document.createElement('div');
+        t.id = 'toast';
+        t.style.position = 'fixed';
+        t.style.left = '50%';
+        t.style.bottom = '18px';
+        t.style.transform = 'translateX(-50%)';
+        t.style.background = 'rgba(17,24,39,.92)';
+        t.style.color = '#fff';
+        t.style.padding = '10px 14px';
+        t.style.borderRadius = '999px';
+        t.style.fontSize = '13px';
+        t.style.zIndex = '9999';
+        t.style.boxShadow = '0 10px 30px rgba(0,0,0,.25)';
+        t.style.opacity = '0';
+        t.style.transition = 'opacity .15s ease';
+        document.body.appendChild(t);
+      }
+      t.textContent = msg;
+      t.style.opacity = '1';
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(()=>{ t.style.opacity = '0'; }, 1400);
+    }
+
+    async function copyText(text){
+      try{
+        if(navigator.clipboard && window.isSecureContext){
+          await navigator.clipboard.writeText(text);
+        }else{
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.position = 'fixed';
+          ta.style.left = '-9999px';
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+        showToast('Copied: ' + text);
+      }catch(e){
+        showToast('Copy failed');
+      }
+    }
+
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.copy-btn');
+      if(!btn) return;
+      const val = btn.getAttribute('data-copy') || '';
+      if(val) copyText(val);
+    });
+  </script>
 </body>
 </html>
+```
+
