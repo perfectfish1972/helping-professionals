@@ -8,13 +8,13 @@
     :root{
       --yellow:#f4c400;
       --yellow-dark:#d8ac00;
-      --ink:#1f2937;
+      --ink:#111827;
       --muted:#6b7280;
       --panel:#ffffff;
       --bg:#f6f7fb;
       --line:#d1d5db;
-      --shadow: 0 6px 18px rgba(17,24,39,.08);
-      --radius:14px;
+      --shadow: 0 10px 26px rgba(17,24,39,.10);
+      --radius:16px;
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       --sans: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
     }
@@ -23,61 +23,57 @@
       margin:0;
       font-family:var(--sans);
       color:var(--ink);
-      background: radial-gradient(1200px 600px at 20% -10%, #fff7cc 0%, rgba(255,247,204,0) 55%),
-                  radial-gradient(900px 500px at 110% 10%, #e7f3ff 0%, rgba(231,243,255,0) 55%),
-                  var(--bg);
+      background:
+        radial-gradient(1100px 560px at 18% -10%, #fff7cc 0%, rgba(255,247,204,0) 55%),
+        radial-gradient(900px 520px at 110% 10%, #e7f3ff 0%, rgba(231,243,255,0) 55%),
+        var(--bg);
     }
-    .wrap{max-width:1100px;margin:0 auto;padding:24px 16px 56px}
+
+    .wrap{max-width:1100px;margin:0 auto;padding:18px 14px 44px}
     header{
       background: linear-gradient(180deg, #ffffff 0%, #fffef6 100%);
       border:1px solid var(--line);
       box-shadow: var(--shadow);
       border-radius: var(--radius);
-      padding:18px 18px 14px;
+      padding:16px 14px 12px;
       text-align:center;
-    }
-    .kicker{
-      font-size:13px;
-      letter-spacing:.12em;
-      color:var(--muted);
-      text-transform:uppercase;
-      margin:0 0 6px;
     }
     h1{
       margin:0;
-      font-size:34px;
+      font-size: clamp(24px, 5vw, 34px);
       letter-spacing:.04em;
       text-transform:uppercase;
+      line-height:1.1;
     }
     h2{
       margin:6px 0 0;
-      font-size:16px;
+      font-size: clamp(14px, 3.2vw, 16px);
       letter-spacing:.10em;
       text-transform:uppercase;
       color:#111827;
     }
     .date{
       margin:6px 0 0;
-      font-weight:700;
+      font-weight:900;
       letter-spacing:.12em;
       text-transform:uppercase;
       color:#111827;
-      font-size:14px;
+      font-size: clamp(12px, 3vw, 14px);
     }
 
     .grid{
       display:grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap:14px;
-      margin-top:16px;
+      margin-top:14px;
       align-items:start;
     }
     @media (max-width: 980px){
       .grid{grid-template-columns: repeat(2, minmax(0, 1fr));}
     }
     @media (max-width: 560px){
-      .grid{grid-template-columns: 1fr;}
-      h1{font-size:28px;}
+      .wrap{padding:14px 12px 40px}
+      .grid{grid-template-columns: 1fr; gap:12px}
     }
 
     details.card{
@@ -90,10 +86,10 @@
     details.card > summary{
       list-style:none;
       cursor:pointer;
-      padding:12px 14px;
+      padding:14px 14px;
       background: linear-gradient(180deg, var(--yellow) 0%, #ffd84d 100%);
       border-bottom: 1px solid var(--yellow-dark);
-      font-weight:800;
+      font-weight:900;
       text-transform:uppercase;
       letter-spacing:.06em;
       font-size:13px;
@@ -101,46 +97,97 @@
       align-items:center;
       justify-content:space-between;
       gap:12px;
+      -webkit-tap-highlight-color: transparent;
     }
+    @media (max-width: 560px){
+      details.card > summary{
+        padding:16px 14px;
+        font-size:14px;
+      }
+    }
+
     details.card > summary::-webkit-details-marker{display:none}
     .chev{
-      width:10px;height:10px;flex:0 0 auto;
-      border-right:3px solid rgba(17,24,39,.7);
-      border-bottom:3px solid rgba(17,24,39,.7);
+      width:12px;height:12px;flex:0 0 auto;
+      border-right:3px solid rgba(17,24,39,.75);
+      border-bottom:3px solid rgba(17,24,39,.75);
       transform: rotate(45deg);
       transition: transform .18s ease;
       margin-left:8px;
     }
     details[open] .chev{transform: rotate(225deg);}
-    .content{padding:10px 14px 12px}
-    .rows{display:flex;flex-direction:column;gap:10px}
+
+    .content{padding:12px 14px 14px}
+    .rows{display:flex;flex-direction:column;gap:12px}
+
     .row{
-      display:grid;
-      grid-template-columns: 1fr auto;
-      gap:10px 14px;
-      padding-bottom:10px;
+      padding-bottom:12px;
       border-bottom:1px dashed #e5e7eb;
-      align-items:start;
     }
     .row:last-child{border-bottom:none;padding-bottom:0}
+
     .label{
-      font-size:13px;
+      font-size:14px;
       line-height:1.25rem;
-      color:#111827;
+      font-weight:700;
+      color:#0f172a;
     }
     .note{
-      font-size:12px;
+      font-size:13px;
       color:var(--muted);
       line-height:1.15rem;
       margin-top:4px;
     }
-    .value{
-      font-family:var(--mono);
-      font-size:13px;
-      color:#111827;
-      white-space:nowrap;
+
+    /* Big, tappable contact buttons */
+    .actions{
+      margin-top:10px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
     }
-    .value .muted{color:var(--muted); font-family:var(--sans); font-size:12px; margin-left:6px}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 12px;
+      border-radius: 14px;
+      border:1px solid #e5e7eb;
+      background: #f9fafb;
+      text-decoration:none;
+      color:#111827;
+      box-shadow: 0 2px 10px rgba(17,24,39,.06);
+      min-height:44px; /* iOS recommended tap target */
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:active{transform: translateY(1px)}
+    .btn .num{
+      font-family:var(--mono);
+      font-size:16px;
+      font-weight:900;
+      letter-spacing:.01em;
+    }
+    .btn .meta{
+      font-size:12px;
+      color:var(--muted);
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+    .btn .stack{
+      display:flex;
+      flex-direction:column;
+      line-height:1.05;
+    }
+
+    @media (max-width: 560px){
+      .label{font-size:15px}
+      .btn{width:100%; justify-content:flex-start; padding:14px 14px}
+      .btn .num{font-size:18px}
+      .btn .meta{font-size:12px}
+      .actions{gap:10px}
+    }
+
     .badge{
       display:inline-block;
       font-size:11px;
@@ -151,22 +198,25 @@
       margin-left:8px;
       color:#374151;
       letter-spacing:.02em;
+      font-weight:800;
     }
 
+    /* Website card */
     .cta{
       background: linear-gradient(180deg, #fff4b8 0%, #ffe066 100%);
       border:1px solid #f0c52b;
-    }
-    .cta .content{
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
       padding:14px;
       text-align:center;
     }
-    .cta p{margin:0 0 8px; font-weight:700}
+    .cta p{margin:0 0 8px; font-weight:900}
     .cta a{
       color:#111827;
       font-weight:900;
       text-decoration:none;
       border-bottom:2px solid rgba(17,24,39,.35);
+      word-break:break-word;
     }
     .footer{
       margin-top:14px;
@@ -193,26 +243,48 @@
         <div class="content">
           <div class="rows">
             <div class="row">
-              <div>
-                <div class="label">Military Police, Fire, and Ambulance</div>
+              <div class="label">Military Police, Fire, and Ambulance</div>
+              <div class="actions">
+                <a class="btn" href="tel:911">
+                  <span class="stack"><span class="num">911</span><span class="meta">Call</span></span>
+                </a>
               </div>
-              <div class="value">911</div>
             </div>
+
             <div class="row">
               <div class="label">HealthLink Nova Scotia</div>
-              <div class="value">811</div>
+              <div class="actions">
+                <a class="btn" href="tel:811">
+                  <span class="stack"><span class="num">811</span><span class="meta">Call</span></span>
+                </a>
+              </div>
             </div>
+
             <div class="row">
               <div class="label">Community, Health &amp; Social Services Nova Scotia</div>
-              <div class="value">211</div>
+              <div class="actions">
+                <a class="btn" href="tel:211">
+                  <span class="stack"><span class="num">211</span><span class="meta">Call</span></span>
+                </a>
+              </div>
             </div>
+
             <div class="row">
               <div class="label">Suicide Crisis Helpline</div>
-              <div class="value">988</div>
+              <div class="actions">
+                <a class="btn" href="tel:988">
+                  <span class="stack"><span class="num">988</span><span class="meta">Call</span></span>
+                </a>
+              </div>
             </div>
+
             <div class="row">
               <div class="label">Base Operator</div>
-              <div class="value">902-427-0550</div>
+              <div class="actions">
+                <a class="btn" href="tel:+19024270550">
+                  <span class="stack"><span class="num">902-427-0550</span><span class="meta">Call</span></span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -225,52 +297,83 @@
           <div class="rows">
             <div class="row">
               <div class="label">Duty Chaplain</div>
-              <div class="value">902-427-7788</div>
+              <div class="actions">
+                <a class="btn" href="tel:+19024277788">
+                  <span class="stack"><span class="num">902-427-7788</span><span class="meta">Call</span></span>
+                </a>
+              </div>
             </div>
+
             <div class="row">
-              <div>
-                <div class="label">MFRC Emergency Childcare Services <span class="badge">24 hrs</span></div>
+              <div class="label">MFRC Emergency Childcare Services <span class="badge">24 hrs</span></div>
+              <div class="actions">
+                <a class="btn" href="tel:+19024277788">
+                  <span class="stack"><span class="num">902-427-7788</span><span class="meta">Call</span></span>
+                </a>
               </div>
-              <div class="value">902-427-7788</div>
             </div>
+
             <div class="row">
-              <div>
-                <div class="label">Canada Suicide Prevention Service <span class="badge">24/7</span></div>
+              <div class="label">Canada Suicide Prevention Service <span class="badge">24/7</span></div>
+              <div class="actions">
+                <a class="btn" href="tel:+18334564566">
+                  <span class="stack"><span class="num">1-833-456-4566</span><span class="meta">Call</span></span>
+                </a>
               </div>
-              <div class="value">1-833-456-4566</div>
             </div>
+
             <div class="row">
-              <div>
-                <div class="label">Provincial Mental Health and Addictions Crisis Line <span class="badge">24/7</span></div>
-              </div>
-              <div class="value">
-                902-429-8167<br/>
-                1-888-429-8167
+              <div class="label">Provincial Mental Health and Addictions Crisis Line <span class="badge">24/7</span></div>
+              <div class="actions">
+                <a class="btn" href="tel:+19024298167">
+                  <span class="stack"><span class="num">902-429-8167</span><span class="meta">Call</span></span>
+                </a>
+                <a class="btn" href="tel:+18884298167">
+                  <span class="stack"><span class="num">1-888-429-8167</span><span class="meta">Call</span></span>
+                </a>
               </div>
             </div>
+
             <div class="row">
-              <div>
-                <div class="label">Bryony House <span class="badge">24 hrs</span></div>
-                <div class="note">(shelter for abused women and their children)</div>
+              <div class="label">Bryony House <span class="badge">24 hrs</span></div>
+              <div class="note">(shelter for abused women and their children)</div>
+              <div class="actions">
+                <a class="btn" href="tel:+19024227650">
+                  <span class="stack"><span class="num">902-422-7650</span><span class="meta">Call</span></span>
+                </a>
               </div>
-              <div class="value">902-422-7650</div>
             </div>
+
             <div class="row">
               <div class="label">Avalon Sexual Assault Nurse Examiners</div>
-              <div class="value">902-425-0122</div>
-            </div>
-            <div class="row">
-              <div class="label">Child Protection Services – after hrs</div>
-              <div class="value">
-                1-888-919-4236<br/>
-                1-866-922-2434
+              <div class="actions">
+                <a class="btn" href="tel:+19024250122">
+                  <span class="stack"><span class="num">902-425-0122</span><span class="meta">Call</span></span>
+                </a>
               </div>
             </div>
+
+            <div class="row">
+              <div class="label">Child Protection Services – after hrs</div>
+              <div class="actions">
+                <a class="btn" href="tel:+18889194236">
+                  <span class="stack"><span class="num">1-888-919-4236</span><span class="meta">Call</span></span>
+                </a>
+                <a class="btn" href="tel:+18669222434">
+                  <span class="stack"><span class="num">1-866-922-2434</span><span class="meta">Call</span></span>
+                </a>
+              </div>
+            </div>
+
             <div class="row">
               <div class="label">Poison Control Line</div>
-              <div class="value">
-                902-470-8161<br/>
-                1-800-565-8161
+              <div class="actions">
+                <a class="btn" href="tel:+19024708161">
+                  <span class="stack"><span class="num">902-470-8161</span><span class="meta">Call</span></span>
+                </a>
+                <a class="btn" href="tel:+18005658161">
+                  <span class="stack"><span class="num">1-800-565-8161</span><span class="meta">Call</span></span>
+                </a>
               </div>
             </div>
           </div>
@@ -283,23 +386,31 @@
         <div class="content">
           <div class="rows">
             <div class="row">
-              <div>
-                <div class="label">Military Family Kids <span class="badge">24/7</span></div>
+              <div class="label">Military Family Kids <span class="badge">24/7</span></div>
+              <div class="actions">
+                <a class="btn" href="sms:686868&body=CAFKIDS">
+                  <span class="stack"><span class="num">Text CAFKIDS</span><span class="meta">To 686868</span></span>
+                </a>
               </div>
-              <div class="value">Text CAFKIDS to 686868</div>
             </div>
+
             <div class="row">
-              <div>
-                <div class="label">Crisis Text Line for ALL <span class="badge">24/7</span></div>
+              <div class="label">Crisis Text Line for ALL <span class="badge">24/7</span></div>
+              <div class="actions">
+                <a class="btn" href="sms:686868&body=HOME">
+                  <span class="stack"><span class="num">Text HOME</span><span class="meta">To 686868</span></span>
+                </a>
               </div>
-              <div class="value">Text HOME to 686868</div>
             </div>
+
             <div class="row">
-              <div>
-                <div class="label">Canada Suicide Prevention Service Text Line</div>
-                <div class="note">(5pm – 1am AST)</div>
+              <div class="label">Canada Suicide Prevention Service Text Line</div>
+              <div class="note">(5pm – 1am AST)</div>
+              <div class="actions">
+                <a class="btn" href="sms:45645">
+                  <span class="stack"><span class="num">Text 45645</span><span class="meta">Open SMS</span></span>
+                </a>
               </div>
-              <div class="value">Text 45645</div>
             </div>
           </div>
         </div>
@@ -310,13 +421,13 @@
         <summary>CAF HEALTH SERVICES CENTRE (ATLANTIC) <span class="chev" aria-hidden="true"></span></summary>
         <div class="content">
           <div class="rows">
-            <div class="row"><div class="label">CDU1</div><div class="value">902-721-8890</div></div>
-            <div class="row"><div class="label">CDU2</div><div class="value">902-721-8868</div></div>
-            <div class="row"><div class="label">CDU3</div><div class="value">902-721-8764</div></div>
-            <div class="row"><div class="label">CDU4</div><div class="value">902-720-1558</div></div>
-            <div class="row"><div class="label">CDU5</div><div class="value">902-721-0815</div></div>
-            <div class="row"><div class="label">Psychosocial Services</div><div class="value">902-721-8607</div></div>
-            <div class="row"><div class="label">Addiction Services</div><div class="value">902-721-8600</div></div>
+            <div class="row"><div class="label">CDU1</div><div class="actions"><a class="btn" href="tel:+19027218890"><span class="stack"><span class="num">902-721-8890</span><span class="meta">Call</span></span></a></div></div>
+            <div class="row"><div class="label">CDU2</div><div class="actions"><a class="btn" href="tel:+19027218868"><span class="stack"><span class="num">902-721-8868</span><span class="meta">Call</span></span></a></div></div>
+            <div class="row"><div class="label">CDU3</div><div class="actions"><a class="btn" href="tel:+19027218764"><span class="stack"><span class="num">902-721-8764</span><span class="meta">Call</span></span></a></div></div>
+            <div class="row"><div class="label">CDU4</div><div class="actions"><a class="btn" href="tel:+19027201558"><span class="stack"><span class="num">902-720-1558</span><span class="meta">Call</span></span></a></div></div>
+            <div class="row"><div class="label">CDU5</div><div class="actions"><a class="btn" href="tel:+19027210815"><span class="stack"><span class="num">902-721-0815</span><span class="meta">Call</span></span></a></div></div>
+            <div class="row"><div class="label">Psychosocial Services</div><div class="actions"><a class="btn" href="tel:+19027218607"><span class="stack"><span class="num">902-721-8607</span><span class="meta">Call</span></span></a></div></div>
+            <div class="row"><div class="label">Addiction Services</div><div class="actions"><a class="btn" href="tel:+19027218600"><span class="stack"><span class="num">902-721-8600</span><span class="meta">Call</span></span></a></div></div>
           </div>
         </div>
       </details>
@@ -327,85 +438,138 @@
         <div class="content">
           <div class="rows">
             <div class="row">
-              <div>
-                <div class="label">Member Assistance Program</div>
-                <div class="note">(24 hrs, free and confidential counselling service for CAF Members and families)</div>
-              </div>
-              <div class="value">
-                1-800-268-7708<br/>
-                TTY: 1-800-567-5803
+              <div class="label">Member Assistance Program</div>
+              <div class="note">(24 hrs, free and confidential counselling service for CAF Members and families)</div>
+              <div class="actions">
+                <a class="btn" href="tel:+18002687708">
+                  <span class="stack"><span class="num">1-800-268-7708</span><span class="meta">Call</span></span>
+                </a>
+                <a class="btn" href="tel:+18005675803">
+                  <span class="stack"><span class="num">TTY: 1-800-567-5803</span><span class="meta">Call</span></span>
+                </a>
               </div>
             </div>
+
             <div class="row">
               <div class="label">Family Information Line</div>
-              <div class="value">1-800-866-4546</div>
+              <div class="actions">
+                <a class="btn" href="tel:+18008664546">
+                  <span class="stack"><span class="num">1-800-866-4546</span><span class="meta">Call</span></span>
+                </a>
+              </div>
             </div>
+
             <div class="row">
               <div class="label">Sexual Misconduct Support and Resource Centre (SMSRC)</div>
-              <div class="value">1-844-750-1648</div>
+              <div class="actions">
+                <a class="btn" href="tel:+18447501648">
+                  <span class="stack"><span class="num">1-844-750-1648</span><span class="meta">Call</span></span>
+                </a>
+              </div>
             </div>
+
             <div class="row">
               <div class="label">Canadian Armed Forces Transition Unit</div>
-              <div class="value">1-800-883-6094</div>
+              <div class="actions">
+                <a class="btn" href="tel:+18008836094">
+                  <span class="stack"><span class="num">1-800-883-6094</span><span class="meta">Call</span></span>
+                </a>
+              </div>
             </div>
+
             <div class="row">
               <div class="label">Canadian Armed Forces Transition Centre</div>
-              <div class="value">902-722-1908</div>
+              <div class="actions">
+                <a class="btn" href="tel:+19027221908">
+                  <span class="stack"><span class="num">902-722-1908</span><span class="meta">Call</span></span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </details>
 
-      <!-- OSISS / VAC / SISIP / CCM / Base Chaplain -->
+      <!-- SUPPORT SERVICES -->
       <details class="card">
         <summary>SUPPORT SERVICES <span class="chev" aria-hidden="true"></span></summary>
         <div class="content">
           <div class="rows">
             <div class="row">
               <div class="label">Operational Stress Injury Social Support (Peer and Family Support)</div>
-              <div class="value">1-800-883-6094</div>
-            </div>
-            <div class="row">
-              <div class="label">Veterans Affairs Canada</div>
-              <div class="value">1-866-522-2122</div>
-            </div>
-            <div class="row">
-              <div class="label">SISIP Financial Services</div>
-              <div class="value">902-425-6926</div>
-            </div>
-            <div class="row">
-              <div class="label">Conflict &amp; Complaint Management Services</div>
-              <div class="value">
-                902-721-7533<br/>
-                1-833-328-3351
+              <div class="actions">
+                <a class="btn" href="tel:+18008836094">
+                  <span class="stack"><span class="num">1-800-883-6094</span><span class="meta">Call</span></span>
+                </a>
               </div>
             </div>
+
+            <div class="row">
+              <div class="label">Veterans Affairs Canada</div>
+              <div class="actions">
+                <a class="btn" href="tel:+18665222122">
+                  <span class="stack"><span class="num">1-866-522-2122</span><span class="meta">Call</span></span>
+                </a>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="label">SISIP Financial Services</div>
+              <div class="actions">
+                <a class="btn" href="tel:+19024256926">
+                  <span class="stack"><span class="num">902-425-6926</span><span class="meta">Call</span></span>
+                </a>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="label">Conflict &amp; Complaint Management Services</div>
+              <div class="actions">
+                <a class="btn" href="tel:+19027217533">
+                  <span class="stack"><span class="num">902-721-7533</span><span class="meta">Call</span></span>
+                </a>
+                <a class="btn" href="tel:+18333283351">
+                  <span class="stack"><span class="num">1-833-328-3351</span><span class="meta">Call</span></span>
+                </a>
+              </div>
+            </div>
+
             <div class="row">
               <div class="label">Base Chaplain</div>
-              <div class="value">902-721-8660</div>
+              <div class="actions">
+                <a class="btn" href="tel:+19027218660">
+                  <span class="stack"><span class="num">902-721-8660</span><span class="meta">Call</span></span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </details>
 
-      <!-- CIVILIAN EMPLOYEE ASSISTANCE PROGRAMS -->
+      <!-- CIVILIAN EAP -->
       <details class="card">
         <summary>CIVILIAN EMPLOYEE ASSISTANCE PROGRAMS <span class="chev" aria-hidden="true"></span></summary>
         <div class="content">
           <div class="rows">
             <div class="row">
-              <div>
-                <div class="label">Employee Assistance Services – Homewood Health</div>
-                <div class="note">(24 hrs, free, and confidential counselling services)</div>
-              </div>
-              <div class="value">
-                1-800-663-1142<br/>
-                1-888-384-1152 <span class="muted">(hearing impairments)</span>
+              <div class="label">Employee Assistance Services – Homewood Health</div>
+              <div class="note">(24 hrs, free, and confidential counselling services)</div>
+              <div class="actions">
+                <a class="btn" href="tel:+18006631142">
+                  <span class="stack"><span class="num">1-800-663-1142</span><span class="meta">Call</span></span>
+                </a>
+                <a class="btn" href="tel:+18883841152">
+                  <span class="stack"><span class="num">1-888-384-1152</span><span class="meta">Hearing impairments</span></span>
+                </a>
               </div>
             </div>
+
             <div class="row">
               <div class="label">NPF Employee &amp; Family Assistance Program</div>
-              <div class="value">1-800-387-4765</div>
+              <div class="actions">
+                <a class="btn" href="tel:+18003874765">
+                  <span class="stack"><span class="num">1-800-387-4765</span><span class="meta">Call</span></span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -418,15 +582,29 @@
           <div class="rows">
             <div class="row">
               <div class="label">Team Lead (Social Worker)</div>
-              <div class="value">902-721-8607</div>
+              <div class="actions">
+                <a class="btn" href="tel:+19027218607">
+                  <span class="stack"><span class="num">902-721-8607</span><span class="meta">Call</span></span>
+                </a>
+              </div>
             </div>
+
             <div class="row">
               <div class="label">MFRC Social Worker</div>
-              <div class="value">902-427-7788</div>
+              <div class="actions">
+                <a class="btn" href="tel:+19024277788">
+                  <span class="stack"><span class="num">902-427-7788</span><span class="meta">Call</span></span>
+                </a>
+              </div>
             </div>
+
             <div class="row">
               <div class="label">Military Police Victim Services Coordinator</div>
-              <div class="value">902-722-4999</div>
+              <div class="actions">
+                <a class="btn" href="tel:+19027224999">
+                  <span class="stack"><span class="num">902-722-4999</span><span class="meta">Call</span></span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -439,7 +617,11 @@
           <div class="rows">
             <div class="row">
               <div class="label">Halifax/Shearwater</div>
-              <div class="value">902-427-7788</div>
+              <div class="actions">
+                <a class="btn" href="tel:+19024277788">
+                  <span class="stack"><span class="num">902-427-7788</span><span class="meta">Call</span></span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -452,34 +634,49 @@
           <div class="rows">
             <div class="row">
               <div class="label">Health Promotion Services (PSP)</div>
-              <div class="value">902-722-4956</div>
+              <div class="actions">
+                <a class="btn" href="tel:+19027224956">
+                  <span class="stack"><span class="num">902-722-4956</span><span class="meta">Call</span></span>
+                </a>
+              </div>
             </div>
+
             <div class="row">
               <div class="label">Road to Mental Readiness</div>
-              <div class="value">902-802-6556</div>
+              <div class="actions">
+                <a class="btn" href="tel:+19028026556">
+                  <span class="stack"><span class="num">902-802-6556</span><span class="meta">Call</span></span>
+                </a>
+              </div>
             </div>
+
             <div class="row">
               <div class="label">Learning &amp; Career Centre</div>
-              <div class="value">902-722-4304</div>
-            </div>
-            <div class="row">
-              <div>
-                <div class="label">LifeSpeak</div>
-                <div class="note">caf.lifespeak.com</div>
+              <div class="actions">
+                <a class="btn" href="tel:+19027224304">
+                  <span class="stack"><span class="num">902-722-4304</span><span class="meta">Call</span></span>
+                </a>
               </div>
-              <div class="value">Access ID: canada</div>
+            </div>
+
+            <div class="row">
+              <div class="label">LifeSpeak</div>
+              <div class="note">caf.lifespeak.com</div>
+              <div class="actions">
+                <a class="btn" href="https://caf.lifespeak.com" target="_blank" rel="noopener">
+                  <span class="stack"><span class="num">Access ID: canada</span><span class="meta">Open site</span></span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </details>
 
       <!-- WEBSITE CTA -->
-      <div class="card cta" role="note" aria-label="Website link note">
-        <div class="content">
-          <p>Please check out</p>
-          <p><a href="https://cfmws.ca/Halifax/hp/helpingprofessionals" target="_blank" rel="noopener">cfmws.ca/Halifax/hp/helpingprofessionals</a></p>
-          <p>for updates and website links for these resources.</p>
-        </div>
+      <div class="cta" role="note" aria-label="Website link note">
+        <p>Please check out</p>
+        <p><a href="https://cfmws.ca/Halifax/hp/helpingprofessionals" target="_blank" rel="noopener">cfmws.ca/Halifax/hp/helpingprofessionals</a></p>
+        <p>for updates and website links for these resources.</p>
       </div>
 
     </section>
